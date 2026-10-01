@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Japon — Carnet de route</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F2E9; --paper2:#EFE9DB; --ink:#2B2A26; --ink-soft:#6B6455;
+  --indigo:#3C4A54; --clay:#B0654A; --moss:#7C8A6E; --sand:#C9A876;
+  --line:#D9D0BC; --card:#FBF9F4;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#211F1B; --paper2:#2A2822; --ink:#EDE7D9; --ink-soft:#B6AD98;
+    --card:#2A2822; --line:#453F35;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#211F1B; --paper2:#2A2822; --ink:#EDE7D9; --ink-soft:#B6AD98;
+  --card:#2A2822; --line:#453F35;
+}
+*{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Zen Maru Gothic',sans-serif;line-height:1.6}
+h1,h2,h3{font-family:'Shippori Mincho',serif;font-weight:700;margin:0}
+header.hero{padding:56px 24px 36px;max-width:760px;margin:0 auto;text-align:left}
+.kicker{color:var(--clay);font-size:.95rem;letter-spacing:.02em;margin-bottom:8px}
+header.hero h1{font-size:2.4rem;color:var(--ink)}
+header.hero p{color:var(--ink-soft);max-width:52ch;margin-top:10px}
+.trip-status{margin-top:14px}
+.trip-status .countdown{display:inline-block;background:var(--clay);color:var(--paper);padding:4px 14px;border-radius:20px;font-size:.85rem}
+.progress-wrap{max-width:320px}
+.progress-label{font-size:.8rem;color:var(--ink-soft);margin-bottom:5px}
+.progress-bar{height:6px;background:var(--paper2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.progress-fill{height:100%;background:var(--moss)}
+.share-btn{margin-top:16px;border:1px solid var(--line);background:var(--card);color:var(--indigo);padding:7px 16px;border-radius:20px;font-family:inherit;font-size:.85rem;cursor:pointer}
+.share-btn:hover{border-color:var(--indigo)}
+.etape-head .icon{font-size:1.6rem}
+@media print{
+  .filters,.route-wrap,.share-btn,.trip-status,.map-link{display:none !important}
+  body{background:#fff;color:#000}
+  .item.hide,.day.hide,.etape.hide{display:block !important}
+  .day{page-break-inside:avoid}
+  .item{border:1px solid #ccc}
+}
+
+.route-wrap{max-width:760px;margin:0 auto 10px;padding:0 24px}
+.route-svg{width:100%;height:auto;overflow:visible}
+.route-svg circle{fill:var(--clay);cursor:pointer;transition:r .15s}
+.route-svg .stop:hover circle{fill:var(--indigo)}
+.route-svg text{font-family:'Zen Maru Gothic',sans-serif;font-size:11px;fill:var(--ink-soft);text-anchor:middle;cursor:pointer}
+.route-svg .stop.current circle{fill:var(--moss)}
+.route-svg .stop.current text{fill:var(--moss);font-weight:700}
+.route-svg .stop.current circle{animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{r:7}50%{r:10}}
+.route-svg .stop.home circle{fill:var(--sand)}
+.route-svg .stop.home text{fill:var(--sand)}
+.current-ring{fill:none;stroke:var(--moss);stroke-width:2;opacity:0;animation:pulseRing 2.2s ease-out infinite}
+@keyframes pulseRing{0%{r:8;opacity:.9}100%{r:22;opacity:0}}
+
+.filters{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line);padding:14px 24px;backdrop-filter:blur(4px)}.filters-inner{max-width:900px;margin:0 auto}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.filter-row:last-child{margin-bottom:0}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink-soft);padding:5px 13px;border-radius:20px;font-size:.82rem;cursor:pointer;font-family:inherit;transition:background .15s,color .15s,border-color .15s}
+.chip.active{background:var(--indigo);border-color:var(--indigo);color:var(--paper)}
+.chip[data-cat="region"].active{background:var(--moss);border-color:var(--moss)}
+.reset{border:none;background:none;color:var(--clay);font-size:.8rem;cursor:pointer;text-decoration:underline;padding:5px 4px}
+
+main{max-width:900px;margin:0 auto;padding:36px 24px 90px}
+.etape{margin-bottom:52px}
+.etape-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.etape-head h2{font-size:1.5rem;color:var(--indigo)}
+.etape-head .meta{color:var(--ink-soft);font-size:.85rem}
+
+.timeline{position:relative;padding-left:26px;border-left:1px solid var(--line)}
+.day{position:relative;margin-bottom:28px}
+.day::before{content:"";position:absolute;left:-31px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--clay)}
+.day.today::before{background:var(--moss);width:13px;height:13px;left:-33px;box-shadow:0 0 0 4px rgba(124,138,110,.25)}
+.day.today .day-head{background:var(--moss);color:var(--paper);display:inline-flex;padding:2px 10px;border-radius:8px}
+.day.today .day-dow,.day.today .day-title{color:var(--paper)}
+.map-link{font-size:.72rem;color:var(--indigo);text-decoration:none;border-bottom:1px dotted var(--indigo)}
+:root[data-theme] .map-link, .map-link{opacity:.85}
+.expand-btn{font-size:.72rem;color:var(--clay);background:none;border:none;text-decoration:underline;cursor:pointer;font-family:inherit;padding:0}
+.item .info-more{display:none;margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);font-size:.86rem;color:var(--ink-soft)}
+.item.expanded .info-more{display:block}
+@media print{ .item .info-more{display:block !important} .expand-btn{display:none} }
+.day-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.day-date{font-family:'Shippori Mincho',serif;font-weight:700;color:var(--ink)}
+.day-dow{color:var(--ink-soft);font-size:.82rem}
+.day-title{color:var(--ink-soft);font-size:.92rem}
+.items{display:flex;flex-direction:column;gap:8px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.item-row{display:grid;grid-template-columns:56px 1fr;gap:12px}
+.item .time{color:var(--ink-soft);font-size:.78rem;padding-top:2px}
+.item-main{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;cursor:pointer}
+.item .text{font-size:.95rem}
+.chevron{color:var(--ink-soft);font-size:.8rem;transition:transform .2s;flex-shrink:0;padding-top:2px}
+.item.open .chevron{transform:rotate(180deg)}
+.item-detail{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--ink-soft);font-size:.85rem;line-height:1.55}
+.item.open .item-detail{display:block}
+.tags{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.tag{font-size:.72rem;padding:2px 9px;border-radius:12px;color:var(--paper)}
+.item.hide{display:none}
+.day.hide{display:none}
+.etape.hide{display:none}
+
+footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);font-size:.8rem}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="kicker">16 octobre — 3 novembre</div>
+  <h1>Japon, un carnet de route</h1>
+  <div class="trip-status" id="tripStatus"></div>
+  <p>Osaka, Kyoto &amp; Nara, la Shimanami Kaido, Hakone puis Tokyo — 19 jours à suivre au fil de l'eau. Filtrez par type d'activité ou par région pour suivre une partie du trajet.</p>
+  <button class="share-btn" id="shareBtn">Partager le lien ↗</button>
+</header>
+
+<div class="route-wrap">
+  <svg class="route-svg" viewBox="0 0 600 200" role="img" aria-label="Schéma du trajet">
+    <path d="M120,150 L230,120 L150,100 L470,60 L540,35" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="5,6"/>
+    <path d="M30,25 L120,150" fill="none" stroke="var(--ink-soft)" stroke-width="1.2" stroke-dasharray="2,4" opacity=".5"/>
+    <g class="stop home" data-e="bxl" id="stopBxl"><circle cx="30" cy="25" r="6"/><text x="30" y="14">Bruxelles</text></g>
+    <g class="stop" data-e="0"><circle cx="120" cy="150" r="7"/><text x="120" y="172">Osaka</text></g>
+    <g class="stop" data-e="1"><circle cx="230" cy="120" r="7"/><text x="230" y="142">Kyoto·Nara</text></g>
+    <g class="stop" data-e="2"><circle cx="150" cy="100" r="7"/><text x="150" y="80">Onomichi·Hiroshima</text></g>
+    <g class="stop" data-e="3"><circle cx="470" cy="60" r="7"/><text x="470" y="82">Hakone</text></g>
+    <g class="stop" data-e="4"><circle cx="540" cy="35" r="7"/><text x="540" y="20">Tokyo</text></g>
+    <circle class="current-ring" id="currentRing" r="8" cx="30" cy="25"/>
+  </svg>
+</div>
+
+<div class="filters">
+  <div class="filters-inner">
+    <div class="filter-row" id="typeRow"></div>
+    <div class="filter-row" id="regionRow"></div>
+    <button class="reset" id="resetBtn">Réinitialiser les filtres</button>
+  </div>
+</div>
+
+<main id="main"></main>
+
+<footer>Carnet de route — ajustable directement dans le fichier <code>DATA</code> ci-dessous dans le code source.</footer>
+
+<script>
+/* ================= DONNÉES DU VOYAGE — MODIFIEZ ICI ================= */
+const TYPES = {
+  culture:{label:'Culture & visites',color:'#3C4A54'},
+  nature:{label:'Nature & plein air',color:'#7C8A6E'},
+  gastronomie:{label:'Gastronomie',color:'#B0654A'},
+  shopping:{label:'Shopping',color:'#C9A876'},
+  parc:{label:'Parc à thème',color:'#8E5B8F'},
+  transport:{label:'Transport',color:'#8C8577'},
+  detente:{label:'Détente & onsen',color:'#5E8A87'}
+};
+
+const DATA = [
+{etape:"Étape 1 — Osaka & sensations", icon:"🏙️", meta:"16 → 20 oct · logement Namba/Umeda", days:[
+  {date:"16 oct", iso:"2026-10-16", dow:"ven", title:"Arrivée & Dotonbori", items:[
+    {time:"11h50", type:"transport", region:"Osaka", text:"Arrivée à KIX, transfert vers Osaka", info:"Aéroport international du Kansai, sur une île artificielle dans la baie d'Osaka ; environ 1h de train jusqu'au centre-ville."},
+    {time:"Soir", type:"gastronomie", region:"Osaka", text:"Dotonbori — néons et street-food", info:"Le quartier le plus animé d'Osaka la nuit : enseignes lumineuses géantes (dont le panneau Glico) et takoyaki à chaque coin de rue."}
+  ]},
+  {date:"17 oct", iso:"2026-10-17", dow:"sam", title:"Himeji & Kobe", items:[
+    {time:"Matin", type:"culture", region:"Himeji", text:"Château de Himeji", info:"Le plus grand château féodal du Japon, surnommé le Château du Héron Blanc, classé UNESCO et intact depuis le 17e siècle."},
+    {time:"Après-midi", type:"nature", region:"Kobe", text:"Nunobiki Ropeway — vue sur la baie, jardin d'herbes", info:"Télécabine de 10 min au-dessus de Kobe, avec un jardin d'herbes aromatiques et vue sur le port et la baie d'Osaka."},
+    {time:"", type:"gastronomie", region:"Kobe", text:"Nankinmachi (Chinatown) — stop snack", info:"Le quartier chinois de Kobe : une rue piétonne dense en petites échoppes de street-food chinoise et japonaise fusion."},
+    {time:"Soir", type:"transport", region:"Osaka", text:"Retour à Osaka", info:"Retour en train vers Osaka pour la nuit."}
+  ]},
+  {date:"18 oct", iso:"2026-10-18", dow:"dim", title:"Kaiyukan & Shinsaibashi", items:[
+    {time:"11h-12h15", type:"nature", region:"Osaka", text:"Aquarium Kaiyukan", info:"L'un des plus grands aquariums du monde, organisé autour d'un immense bassin central abritant des requins-baleines."},
+    {time:"12h15-13h30", type:"gastronomie", region:"Osaka", text:"Déjeuner sur le port de Tempozan", info:"Zone portuaire avec restaurants et vue sur la grande roue, juste à côté de l'aquarium."},
+    {time:"14h-16h30", type:"shopping", region:"Osaka", text:"Shinsaibashi-Suji, promenade à Dotonbori", info:"Galerie marchande couverte de 600m, l'une des rues commerçantes historiques d'Osaka, qui débouche sur Dotonbori."},
+    {time:"17h-18h30", type:"culture", region:"Osaka", text:"Harukas 300 — coucher de soleil sur Osaka", info:"Observatoire au sommet de la plus haute tour du Japon (300m), vue à 360° sur toute la ville."},
+    {time:"19h+", type:"gastronomie", region:"Osaka", text:"Dîner à Tennoji ou Namba", info:"Deux quartiers animés d'Osaka, bien fournis en restaurants, à choisir selon la fatigue du jour."}
+  ]},
+  {date:"19 oct", iso:"2026-10-19", dow:"lun", title:"Universal Studios Japan", items:[
+    {time:"Journée", type:"parc", region:"Osaka", text:"USJ + Super Nintendo World (réservation indispensable)", info:"Parc Universal avec la zone immersive Super Nintendo World (Mario Kart, Donkey Kong) ; l'Express Pass évite de longues files."}
+  ]}
+]},
+{etape:"Étape 2 — Kyoto & Nara", icon:"⛩️", meta:"20 → 25 oct · logement près de la gare / Gion", days:[
+  {date:"20 oct", iso:"2026-10-20", dow:"mar", title:"Transfert & Fushimi Inari", items:[
+    {time:"", type:"transport", region:"Kyoto", text:"Transfert vers Kyoto", info:"Environ 30 min de train JR régional depuis Osaka."},
+    {time:"Fin d'aprem", type:"culture", region:"Kyoto", text:"Fushimi Inari Taisha (avant 15h) — achat du goshuincho", info:"Sanctuaire aux milliers de torii orange formant des tunnels ; le goshuincho est un carnet pour collectionner les sceaux calligraphiés des temples."}
+  ]},
+  {date:"21 oct", iso:"2026-10-21", dow:"mer", title:"Arashiyama", items:[
+    {time:"7h-8h", type:"nature", region:"Kyoto", text:"Forêt de bambous, tôt pour éviter la foule", info:"Sentier emblématique d'Arashiyama entre hautes tiges de bambous, très photographié et pris d'assaut dès 9h30."},
+    {time:"Midi", type:"nature", region:"Kyoto", text:"Iwatayama Monkey Park", info:"Parc en hauteur où des macaques japonais vivent en liberté, avec une vue sur Kyoto au sommet."},
+    {time:"Après-midi", type:"nature", region:"Kyoto", text:"Sagano Scenic Railway + barque sur la Hozugawa (réserver)", info:"Petit train touristique le long de la rivière, suivi d'une descente en barque traditionnelle jusqu'à Arashiyama."}
+  ]},
+  {date:"22 oct", iso:"2026-10-22", dow:"jeu", title:"Nara", items:[
+    {time:"Journée", type:"nature", region:"Nara", text:"Cerfs en liberté, Grand Bouddha du Todai-ji (goshuin)", info:"Le parc de Nara abrite plus de 1000 daims habitués aux visiteurs ; le Todai-ji renferme la plus grande statue de Bouddha en bronze du pays."}
+  ]},
+  {date:"23 oct", iso:"2026-10-23", dow:"ven", title:"Tour des temples", items:[
+    {time:"8h30", type:"culture", region:"Kyoto", text:"Kiyomizu-dera (ouvre à 6h, idéal avant les cars)", info:"Temple en bois perché sur pilotis avec vue plongeante sur Kyoto, l'un des sites les plus visités de la ville."},
+    {time:"Midi", type:"culture", region:"Kyoto", text:"Ninenzaka / Sannenzaka jusqu'à Kodai-ji et Gion", info:"Ruelles pavées historiques bordées de maisons traditionnelles, menant au quartier des geishas de Gion."},
+    {time:"Après-midi", type:"gastronomie", region:"Kyoto", text:"Marché de Nishiki", info:"Marché couvert de 400m surnommé 'la cuisine de Kyoto', spécialités locales et street-food à grignoter en marchant."}
+  ]},
+  {date:"24 oct", iso:"2026-10-24", dow:"sam", title:"Matinée libre & Pavillon d'Or", items:[
+    {time:"9h", type:"culture", region:"Kyoto", text:"Kinkaku-ji à l'ouverture, avant de quitter la ville", info:"Le Pavillon d'Or, recouvert de feuilles d'or, se reflète dans l'étang ; la lumière du matin y est la plus belle."}
+  ]}
+]},
+{etape:"Étape 3 — Shimanami Kaido & Hiroshima", icon:"🚲", meta:"25 → 28 oct · logement Onomichi puis Hiroshima/Miyajima", days:[
+  {date:"25 oct", iso:"2026-10-25", dow:"dim", title:"Vélo sur la Shimanami Kaido", items:[
+    {time:"Journée", type:"nature", region:"Onomichi", text:"Traversée des îles à vélo (électrique conseillé)", info:"La Shimanami Kaido relie Honshu à Shikoku par des ponts suspendus au-dessus de la mer intérieure, sur piste cyclable dédiée."}
+  ]},
+  {date:"26 oct", iso:"2026-10-26", dow:"lun", title:"Hiroshima", items:[
+    {time:"Matin", type:"nature", region:"Onomichi", text:"Fin de la balade vélo", info:"Dernière portion de la traversée avant de rendre les vélos."},
+    {time:"Après-midi", type:"culture", region:"Hiroshima", text:"Parc de la Paix", info:"Mémorial dédié aux victimes de la bombe atomique de 1945, avec le dôme de Genbaku préservé en l'état."}
+  ]},
+  {date:"27 oct", iso:"2026-10-27", dow:"mar", title:"Miyajima", items:[
+    {time:"Journée", type:"culture", region:"Miyajima", text:"Sanctuaire Itsukushima, mont Misen en téléphérique", info:"Le célèbre torii flottant sur la mer à marée haute ; le mont Misen offre une vue sur la baie depuis son sommet."}
+  ]}
+]},
+{etape:"Étape 4 — Hakone & le Mont Fuji", icon:"🗻", meta:"28 → 30 oct · ryokan/hôtel avec onsen", days:[
+  {date:"28 oct", iso:"2026-10-28", dow:"mer", title:"Transfert vers Hakone", items:[
+    {time:"", type:"transport", region:"Hakone", text:"Shinkansen via Odawara vers Gora / Hakone-Yumoto", info:"Train à grande vitesse jusqu'à Odawara, puis train local Odakyu vers la zone thermale de Hakone."}
+  ]},
+  {date:"29 oct", iso:"2026-10-29", dow:"jeu", title:"Boucle du lac Ashi", items:[
+    {time:"Journée", type:"nature", region:"Hakone", text:"Bateau sur le lac Ashi (vue Fuji), téléphérique d'Owakudani", info:"Croisière en bateau pirate sur le lac Ashi, puis téléphérique au-dessus d'une vallée volcanique fumante, vue sur le Mont Fuji par temps clair."},
+    {time:"", type:"detente", region:"Hakone", text:"Onsen au retour", info:"Bain thermal japonais traditionnel, souvent inclus dans les ryokans de la région."}
+  ]}
+]},
+{etape:"Étape 5 — Tokyo, futur & Ghibli", icon:"🗼", meta:"30 oct → 3 nov · logement Shinjuku/Shibuya", days:[
+  {date:"30 oct", iso:"2026-10-30", dow:"ven", title:"Harajuku", items:[
+    {time:"", type:"transport", region:"Tokyo", text:"Arrivée à Tokyo", info:"Trajet en Shinkansen ou train local depuis Odawara jusqu'à Tokyo."},
+    {time:"Après-midi", type:"shopping", region:"Tokyo", text:"Takeshita Street — shopping ado", info:"Rue piétonne d'Harajuku dédiée à la mode alternative, aux crêpes et à la culture kawaii."}
+  ]},
+  {date:"31 oct", iso:"2026-10-31", dow:"sam", title:"teamLab & Shibuya", items:[
+    {time:"Matin", type:"culture", region:"Tokyo", text:"teamLab Planets, pieds nus dans l'eau", info:"Musée d'art numérique immersif où l'on marche pieds nus dans des installations lumineuses, dont un bassin d'eau peu profonde."},
+    {time:"Après-midi", type:"culture", region:"Tokyo", text:"Croisement de Shibuya + Shibuya Sky", info:"Le passage piéton le plus fréquenté du monde, dominé par l'observatoire à ciel ouvert au sommet du Scramble Square."}
+  ]},
+  {date:"1 nov", iso:"2026-11-01", dow:"dim", title:"Musée Ghibli", items:[
+    {time:"", type:"culture", region:"Tokyo", text:"Musée Ghibli à Mitaka (billets pris le 10 sept)", info:"Musée dédié à l'univers du Studio Ghibli, conçu comme un lieu à explorer plutôt qu'à visiter linéairement ; billets à date fixe."}
+  ]},
+  {date:"2 nov", iso:"2026-11-02", dow:"lun", title:"Tokyo DisneySea", items:[
+    {time:"Rope drop", type:"parc", region:"Tokyo", text:"Arrivée 45-60 min avant l'ouverture, DPA dès l'entrée", info:"Parc Disney atypique organisé en ports thématiques (dont Fantasy Springs) ; le Disney Premier Access réserve un accès rapide payant par attraction."}
+  ]},
+  {date:"3 nov", iso:"2026-11-03", dow:"mar", title:"Départ", items:[
+    {time:"Matin", type:"shopping", region:"Tokyo", text:"Derniers achats", info:"Dernière matinée libre à Tokyo pour les souvenirs de dernière minute."},
+    {time:"14h", type:"transport", region:"Tokyo", text:"Départ pour Narita, vol de 17h20", info:"Environ 1h30-2h de trajet depuis le centre de Tokyo jusqu'à l'aéroport de Narita."}
+  ]}
+]}
+];
+/* ================= FIN DES DONNÉES ================= */
+
+const regionOf = new Set();
+DATA.forEach(e=>e.days.forEach(d=>d.items.forEach(i=>regionOf.add(i.region))));
+
+const typeRow = document.getElementById('typeRow');
+Object.entries(TYPES).forEach(([key,t])=>{
+  const b=document.createElement('button');
+  b.className='chip'; b.textContent=t.label; b.dataset.cat='type'; b.dataset.key=key;
+  b.onclick=()=>{b.classList.toggle('active'); render();};
+  typeRow.appendChild(b);
+});
+const regionRow = document.getElementById('regionRow');
+[...regionOf].forEach(r=>{
+  const b=document.createElement('button');
+  b.className='chip'; b.textContent=r; b.dataset.cat='region'; b.dataset.key=r;
+  b.onclick=()=>{b.classList.toggle('active'); render();};
+  regionRow.appendChild(b);
+});
+document.getElementById('resetBtn').onclick=()=>{
+  document.querySelectorAll('.chip.active').forEach(c=>c.classList.remove('active'));
+  render();
+};
+
+const main = document.getElementById('main');
+
+function build(){
+  DATA.forEach((etape,ei)=>{
+    const sec=document.createElement('section'); sec.className='etape'; sec.dataset.etape=ei;
+    sec.innerHTML=`<div class="etape-head"><span class="icon">${etape.icon||''}</span><h2>${etape.etape}</h2><span class="meta">${etape.meta}</span></div>`;
+    const tl=document.createElement('div'); tl.className='timeline';
+    const todayISO = new Date().toISOString().slice(0,10);
+    etape.days.forEach(day=>{
+      const d=document.createElement('div'); d.className='day';
+      const isToday = day.iso === todayISO;
+      if(isToday) d.classList.add('today');
+      d.innerHTML=`<div class="day-head"><span class="day-date">${day.date}</span><span class="day-dow">${day.dow}</span><span class="day-title">— ${day.title}</span>${isToday?'<span class="day-title">· aujourd\'hui</span>':''}</div>`;
+      const items=document.createElement('div'); items.className='items';
+      day.items.forEach(it=>{
+        const row=document.createElement('div'); row.className='item';
+        row.dataset.type=it.type; row.dataset.region=it.region;
+        const color=TYPES[it.type]?TYPES[it.type].color:'#999';
+        const mapsQuery = encodeURIComponent(it.maps || (it.text + ' ' + it.region + ' Japon'));
+        const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
+        row.innerHTML=`<div class="time">${it.time||''}</div><div><div class="text">${it.text}</div><div class="tags"><span class="tag" style="background:${color}">${TYPES[it.type]?TYPES[it.type].label:it.type}</span><span class="tag" style="background:#8C8577">${it.region}</span><a class="map-link" href="${mapsHref}" target="_blank" rel="noopener">Voir sur la carte ↗</a>${it.info?'<button class="expand-btn">+ d\u2019infos ⌄</button>':''}</div>${it.info?`<div class="info-more">${it.info}</div>`:''}</div>`;
+        items.appendChild(row);
+      });
+      d.appendChild(items);
+      tl.appendChild(d);
+    });
+    sec.appendChild(tl);
+    main.appendChild(sec);
+  });
+}
+build();
+
+document.querySelectorAll('.route-svg .stop').forEach(g=>{
+  g.addEventListener('click',()=>{
+    const sec=document.querySelector(`.etape[data-etape="${g.dataset.e}"]`);
+    if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+const START=new Date('2026-10-16T00:00:00');
+const END=new Date('2026-11-03T23:59:59');
+const NOW=new Date();
+const TOTAL=19;
+const statusEl=document.getElementById('tripStatus');
+if(NOW<START){
+  const j=Math.ceil((START-NOW)/86400000);
+  statusEl.innerHTML=`<span class="countdown">J-${j} avant le départ</span>`;
+}else if(NOW<=END){
+  const day=Math.floor((NOW-START)/86400000)+1;
+  const pct=Math.round(day/TOTAL*100);
+  statusEl.innerHTML=`<div class="progress-wrap"><div class="progress-label">Jour ${day} / ${TOTAL}</div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div>`;
+}else{
+  statusEl.innerHTML=`<span class="countdown">Voyage terminé ✓</span>`;
+}
+
+// Position actuelle sur la carte schématique
+const todayISO2 = NOW.toISOString().slice(0,10);
+let currentEtape = 'bxl';
+if(NOW>=START && NOW<=END){
+  DATA.forEach((etape,ei)=>{
+    etape.days.forEach(day=>{
+      if(day.iso===todayISO2) currentEtape = String(ei);
+    });
+  });
+}
+document.querySelectorAll('.route-svg .stop').forEach(g=>{
+  g.classList.toggle('current', g.dataset.e===currentEtape);
+});
+
+document.getElementById('shareBtn').addEventListener('click', async ()=>{
+  const btn=document.getElementById('shareBtn');
+  try{
+    await navigator.clipboard.writeText(location.href);
+    btn.textContent='Lien copié ✓';
+  }catch(e){
+    btn.textContent=location.href;
+  }
+  setTimeout(()=>btn.textContent='Partager le lien ↗',2000);
+});
+
+main.addEventListener('click', (e)=>{
+  const btn=e.target.closest('.expand-btn');
+  if(!btn) return;
+  const item=btn.closest('.item');
+  item.classList.toggle('expanded');
+  btn.textContent = item.classList.contains('expanded') ? '− réduire ⌃' : '+ d\u2019infos ⌄';
+});
+
+const todayEl = document.querySelector('.day.today');
+if(todayEl) todayEl.scrollIntoView({behavior:'smooth', block:'center'});
+
+function render(){
+  const activeTypes=[...document.querySelectorAll('.chip[data-cat="type"].active')].map(c=>c.dataset.key);
+  const activeRegions=[...document.querySelectorAll('.chip[data-cat="region"].active')].map(c=>c.dataset.key);
+  document.querySelectorAll('.etape').forEach(sec=>{
+    let etapeVisible=false;
+    sec.querySelectorAll('.day').forEach(day=>{
+      let dayVisible=false;
+      day.querySelectorAll('.item').forEach(it=>{
+        const okType = activeTypes.length===0 || activeTypes.includes(it.dataset.type);
+        const okRegion = activeRegions.length===0 || activeRegions.includes(it.dataset.region);
+        const show = okType && okRegion;
+        it.classList.toggle('hide', !show);
+        if(show) dayVisible=true;
+      });
+      day.classList.toggle('hide', !dayVisible);
+      if(dayVisible) etapeVisible=true;
+    });
+    sec.classList.toggle('hide', !etapeVisible);
+  });
+}
+</script>
+</body>
+</html>
