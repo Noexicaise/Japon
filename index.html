@@ -41,6 +41,18 @@ header.hero p{color:var(--ink-soft);max-width:52ch;margin-top:10px}
 .share-btn{margin-top:16px;border:1px solid var(--line);background:var(--card);color:var(--indigo);padding:7px 16px;border-radius:20px;font-family:inherit;font-size:.85rem;cursor:pointer}
 .share-btn:hover{border-color:var(--indigo)}
 .etape-head .icon{font-size:1.6rem}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap}
+.badge{font-size:.72rem;padding:2px 9px;border-radius:12px}
+.badge.booked{background:var(--moss);color:var(--paper)}
+.badge.todo{background:var(--sand);color:#3a3324}
+.etape-head{cursor:pointer;user-select:none}
+.etape-head .weather{margin-left:auto}
+.chevron{color:var(--ink-soft);font-size:.8rem;transition:transform .2s;flex-shrink:0;padding-top:2px}
+.etape-head.collapsed .chevron{transform:rotate(-90deg)}
+.timeline{max-height:4000px;overflow:hidden;transition:max-height .3s ease}
+.timeline.collapsed{max-height:0}
+.transit{max-width:900px;margin:-30px auto 40px;padding-left:50px;color:var(--ink-soft);font-size:.85rem;font-style:italic}
+@media print{ .timeline.collapsed{max-height:none !important} .etape-head{cursor:default} .chevron{display:none} }
 @media print{
   .filters,.route-wrap,.share-btn,.trip-status,.map-link{display:none !important}
   body{background:#fff;color:#000}
@@ -118,7 +130,10 @@ footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);f
   <h1>Japon, un carnet de route</h1>
   <div class="trip-status" id="tripStatus"></div>
   <p>Osaka, Kyoto &amp; Nara, la Shimanami Kaido, Hakone puis Tokyo — 19 jours à suivre au fil de l'eau. Filtrez par type d'activité ou par région pour suivre une partie du trajet.</p>
-  <button class="share-btn" id="shareBtn">Partager le lien ↗</button>
+  <div class="btn-row">
+    <button class="share-btn" id="shareBtn">Partager le lien ↗</button>
+    <button class="share-btn" id="themeBtn">🌓 Thème : auto</button>
+  </div>
 </header>
 
 <div class="route-wrap">
@@ -160,7 +175,7 @@ const TYPES = {
 };
 
 const DATA = [
-{etape:"Étape 1 — Osaka & sensations", icon:"🏙️", meta:"16 → 20 oct · logement Namba/Umeda", days:[
+{etape:"Étape 1 — Osaka & sensations", icon:"🏙️", meta:"16 → 20 oct · logement Namba/Umeda", weather:"~23°C / 15°C, encore doux", days:[
   {date:"16 oct", iso:"2026-10-16", dow:"ven", title:"Arrivée & Dotonbori", items:[
     {time:"11h50", type:"transport", region:"Osaka", text:"Arrivée à KIX, transfert vers Osaka", info:"Aéroport international du Kansai, sur une île artificielle dans la baie d'Osaka ; environ 1h de train jusqu'au centre-ville."},
     {time:"Soir", type:"gastronomie", region:"Osaka", text:"Dotonbori — néons et street-food", info:"Le quartier le plus animé d'Osaka la nuit : enseignes lumineuses géantes (dont le panneau Glico) et takoyaki à chaque coin de rue."}
@@ -172,17 +187,17 @@ const DATA = [
     {time:"Soir", type:"transport", region:"Osaka", text:"Retour à Osaka", info:"Retour en train vers Osaka pour la nuit."}
   ]},
   {date:"18 oct", iso:"2026-10-18", dow:"dim", title:"Kaiyukan & Shinsaibashi", items:[
-    {time:"11h-12h15", type:"nature", region:"Osaka", text:"Aquarium Kaiyukan", info:"L'un des plus grands aquariums du monde, organisé autour d'un immense bassin central abritant des requins-baleines."},
+    {time:"11h-12h15", type:"nature", region:"Osaka", text:"Aquarium Kaiyukan", booked:true, info:"L'un des plus grands aquariums du monde, organisé autour d'un immense bassin central abritant des requins-baleines."},
     {time:"12h15-13h30", type:"gastronomie", region:"Osaka", text:"Déjeuner sur le port de Tempozan", info:"Zone portuaire avec restaurants et vue sur la grande roue, juste à côté de l'aquarium."},
     {time:"14h-16h30", type:"shopping", region:"Osaka", text:"Shinsaibashi-Suji, promenade à Dotonbori", info:"Galerie marchande couverte de 600m, l'une des rues commerçantes historiques d'Osaka, qui débouche sur Dotonbori."},
     {time:"17h-18h30", type:"culture", region:"Osaka", text:"Harukas 300 — coucher de soleil sur Osaka", info:"Observatoire au sommet de la plus haute tour du Japon (300m), vue à 360° sur toute la ville."},
     {time:"19h+", type:"gastronomie", region:"Osaka", text:"Dîner à Tennoji ou Namba", info:"Deux quartiers animés d'Osaka, bien fournis en restaurants, à choisir selon la fatigue du jour."}
   ]},
   {date:"19 oct", iso:"2026-10-19", dow:"lun", title:"Universal Studios Japan", items:[
-    {time:"Journée", type:"parc", region:"Osaka", text:"USJ + Super Nintendo World (réservation indispensable)", info:"Parc Universal avec la zone immersive Super Nintendo World (Mario Kart, Donkey Kong) ; l'Express Pass évite de longues files."}
+    {time:"Journée", type:"parc", region:"Osaka", text:"USJ + Super Nintendo World (réservation indispensable)", booked:true, info:"Parc Universal avec la zone immersive Super Nintendo World (Mario Kart, Donkey Kong) ; l'Express Pass évite de longues files."}
   ]}
 ]},
-{etape:"Étape 2 — Kyoto & Nara", icon:"⛩️", meta:"20 → 25 oct · logement près de la gare / Gion", days:[
+{etape:"Étape 2 — Kyoto & Nara", icon:"⛩️", meta:"20 → 25 oct · logement près de la gare / Gion", weather:"~21°C / 13°C, débuts de couleurs d'automne", transit:"→ JR Special Rapid, ~30-45 min", days:[
   {date:"20 oct", iso:"2026-10-20", dow:"mar", title:"Transfert & Fushimi Inari", items:[
     {time:"", type:"transport", region:"Kyoto", text:"Transfert vers Kyoto", info:"Environ 30 min de train JR régional depuis Osaka."},
     {time:"Fin d'aprem", type:"culture", region:"Kyoto", text:"Fushimi Inari Taisha (avant 15h) — achat du goshuincho", info:"Sanctuaire aux milliers de torii orange formant des tunnels ; le goshuincho est un carnet pour collectionner les sceaux calligraphiés des temples."}
@@ -190,7 +205,7 @@ const DATA = [
   {date:"21 oct", iso:"2026-10-21", dow:"mer", title:"Arashiyama", items:[
     {time:"7h-8h", type:"nature", region:"Kyoto", text:"Forêt de bambous, tôt pour éviter la foule", info:"Sentier emblématique d'Arashiyama entre hautes tiges de bambous, très photographié et pris d'assaut dès 9h30."},
     {time:"Midi", type:"nature", region:"Kyoto", text:"Iwatayama Monkey Park", info:"Parc en hauteur où des macaques japonais vivent en liberté, avec une vue sur Kyoto au sommet."},
-    {time:"Après-midi", type:"nature", region:"Kyoto", text:"Sagano Scenic Railway + barque sur la Hozugawa (réserver)", info:"Petit train touristique le long de la rivière, suivi d'une descente en barque traditionnelle jusqu'à Arashiyama."}
+    {time:"Après-midi", type:"nature", region:"Kyoto", text:"Sagano Scenic Railway + barque sur la Hozugawa (réserver)", booked:false, info:"Petit train touristique le long de la rivière, suivi d'une descente en barque traditionnelle jusqu'à Arashiyama."}
   ]},
   {date:"22 oct", iso:"2026-10-22", dow:"jeu", title:"Nara", items:[
     {time:"Journée", type:"nature", region:"Nara", text:"Cerfs en liberté, Grand Bouddha du Todai-ji (goshuin)", info:"Le parc de Nara abrite plus de 1000 daims habitués aux visiteurs ; le Todai-ji renferme la plus grande statue de Bouddha en bronze du pays."}
@@ -204,7 +219,7 @@ const DATA = [
     {time:"9h", type:"culture", region:"Kyoto", text:"Kinkaku-ji à l'ouverture, avant de quitter la ville", info:"Le Pavillon d'Or, recouvert de feuilles d'or, se reflète dans l'étang ; la lumière du matin y est la plus belle."}
   ]}
 ]},
-{etape:"Étape 3 — Shimanami Kaido & Hiroshima", icon:"🚲", meta:"25 → 28 oct · logement Onomichi puis Hiroshima/Miyajima", days:[
+{etape:"Étape 3 — Shimanami Kaido & Hiroshima", icon:"🚲", meta:"25 → 28 oct · logement Onomichi puis Hiroshima/Miyajima", weather:"~20°C / 13°C", transit:"→ Shinkansen + train local, ~1h30-2h30", days:[
   {date:"25 oct", iso:"2026-10-25", dow:"dim", title:"Vélo sur la Shimanami Kaido", items:[
     {time:"Journée", type:"nature", region:"Onomichi", text:"Traversée des îles à vélo (électrique conseillé)", info:"La Shimanami Kaido relie Honshu à Shikoku par des ponts suspendus au-dessus de la mer intérieure, sur piste cyclable dédiée."}
   ]},
@@ -216,7 +231,7 @@ const DATA = [
     {time:"Journée", type:"culture", region:"Miyajima", text:"Sanctuaire Itsukushima, mont Misen en téléphérique", info:"Le célèbre torii flottant sur la mer à marée haute ; le mont Misen offre une vue sur la baie depuis son sommet."}
   ]}
 ]},
-{etape:"Étape 4 — Hakone & le Mont Fuji", icon:"🗻", meta:"28 → 30 oct · ryokan/hôtel avec onsen", days:[
+{etape:"Étape 4 — Hakone & le Mont Fuji", icon:"🗻", meta:"28 → 30 oct · ryokan/hôtel avec onsen", weather:"~17°C / 8°C, nettement plus frais en montagne", transit:"→ Shinkansen via Odawara, ~4h30-5h", days:[
   {date:"28 oct", iso:"2026-10-28", dow:"mer", title:"Transfert vers Hakone", items:[
     {time:"", type:"transport", region:"Hakone", text:"Shinkansen via Odawara vers Gora / Hakone-Yumoto", info:"Train à grande vitesse jusqu'à Odawara, puis train local Odakyu vers la zone thermale de Hakone."}
   ]},
@@ -225,20 +240,20 @@ const DATA = [
     {time:"", type:"detente", region:"Hakone", text:"Onsen au retour", info:"Bain thermal japonais traditionnel, souvent inclus dans les ryokans de la région."}
   ]}
 ]},
-{etape:"Étape 5 — Tokyo, futur & Ghibli", icon:"🗼", meta:"30 oct → 3 nov · logement Shinjuku/Shibuya", days:[
+{etape:"Étape 5 — Tokyo, futur & Ghibli", icon:"🗼", meta:"30 oct → 3 nov · logement Shinjuku/Shibuya", weather:"~19°C / 11°C", transit:"→ Odakyu Romancecar ou Shinkansen, ~35-90 min", days:[
   {date:"30 oct", iso:"2026-10-30", dow:"ven", title:"Harajuku", items:[
     {time:"", type:"transport", region:"Tokyo", text:"Arrivée à Tokyo", info:"Trajet en Shinkansen ou train local depuis Odawara jusqu'à Tokyo."},
     {time:"Après-midi", type:"shopping", region:"Tokyo", text:"Takeshita Street — shopping ado", info:"Rue piétonne d'Harajuku dédiée à la mode alternative, aux crêpes et à la culture kawaii."}
   ]},
   {date:"31 oct", iso:"2026-10-31", dow:"sam", title:"teamLab & Shibuya", items:[
-    {time:"Matin", type:"culture", region:"Tokyo", text:"teamLab Planets, pieds nus dans l'eau", info:"Musée d'art numérique immersif où l'on marche pieds nus dans des installations lumineuses, dont un bassin d'eau peu profonde."},
+    {time:"Matin", type:"culture", region:"Tokyo", text:"teamLab Planets, pieds nus dans l'eau", booked:true, info:"Musée d'art numérique immersif où l'on marche pieds nus dans des installations lumineuses, dont un bassin d'eau peu profonde."},
     {time:"Après-midi", type:"culture", region:"Tokyo", text:"Croisement de Shibuya + Shibuya Sky", info:"Le passage piéton le plus fréquenté du monde, dominé par l'observatoire à ciel ouvert au sommet du Scramble Square."}
   ]},
   {date:"1 nov", iso:"2026-11-01", dow:"dim", title:"Musée Ghibli", items:[
-    {time:"", type:"culture", region:"Tokyo", text:"Musée Ghibli à Mitaka (billets pris le 10 sept)", info:"Musée dédié à l'univers du Studio Ghibli, conçu comme un lieu à explorer plutôt qu'à visiter linéairement ; billets à date fixe."}
+    {time:"", type:"culture", region:"Tokyo", text:"Musée Ghibli à Mitaka (billets pris le 10 sept)", booked:true, info:"Musée dédié à l'univers du Studio Ghibli, conçu comme un lieu à explorer plutôt qu'à visiter linéairement ; billets à date fixe."}
   ]},
   {date:"2 nov", iso:"2026-11-02", dow:"lun", title:"Tokyo DisneySea", items:[
-    {time:"Rope drop", type:"parc", region:"Tokyo", text:"Arrivée 45-60 min avant l'ouverture, DPA dès l'entrée", info:"Parc Disney atypique organisé en ports thématiques (dont Fantasy Springs) ; le Disney Premier Access réserve un accès rapide payant par attraction."}
+    {time:"Rope drop", type:"parc", region:"Tokyo", text:"Arrivée 45-60 min avant l'ouverture, DPA dès l'entrée", booked:false, info:"Parc Disney atypique organisé en ports thématiques (dont Fantasy Springs) ; le Disney Premier Access réserve un accès rapide payant par attraction."}
   ]},
   {date:"3 nov", iso:"2026-11-03", dow:"mar", title:"Départ", items:[
     {time:"Matin", type:"shopping", region:"Tokyo", text:"Derniers achats", info:"Dernière matinée libre à Tokyo pour les souvenirs de dernière minute."},
@@ -248,6 +263,7 @@ const DATA = [
 ];
 /* ================= FIN DES DONNÉES ================= */
 
+const NOWISO = new Date().toISOString().slice(0,10);
 const regionOf = new Set();
 DATA.forEach(e=>e.days.forEach(d=>d.items.forEach(i=>regionOf.add(i.region))));
 
@@ -275,8 +291,11 @@ const main = document.getElementById('main');
 function build(){
   DATA.forEach((etape,ei)=>{
     const sec=document.createElement('section'); sec.className='etape'; sec.dataset.etape=ei;
-    sec.innerHTML=`<div class="etape-head"><span class="icon">${etape.icon||''}</span><h2>${etape.etape}</h2><span class="meta">${etape.meta}</span></div>`;
-    const tl=document.createElement('div'); tl.className='timeline';
+    const weatherHtml = etape.weather ? `<span class="meta weather">🌤️ ${etape.weather}</span>` : '';
+    const lastIso = etape.days[etape.days.length-1].iso;
+    const isPast = lastIso < NOWISO;
+    sec.innerHTML=`<div class="etape-head${isPast?' collapsed':''}"><span class="icon">${etape.icon||''}</span><h2>${etape.etape}</h2><span class="meta">${etape.meta}</span>${weatherHtml}<span class="chevron">▾</span></div>`;
+    const tl=document.createElement('div'); tl.className='timeline'+(isPast?' collapsed':'');
     const todayISO = new Date().toISOString().slice(0,10);
     etape.days.forEach(day=>{
       const d=document.createElement('div'); d.className='day';
@@ -290,7 +309,7 @@ function build(){
         const color=TYPES[it.type]?TYPES[it.type].color:'#999';
         const mapsQuery = encodeURIComponent(it.maps || (it.text + ' ' + it.region + ' Japon'));
         const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
-        row.innerHTML=`<div class="time">${it.time||''}</div><div><div class="text">${it.text}</div><div class="tags"><span class="tag" style="background:${color}">${TYPES[it.type]?TYPES[it.type].label:it.type}</span><span class="tag" style="background:#8C8577">${it.region}</span><a class="map-link" href="${mapsHref}" target="_blank" rel="noopener">Voir sur la carte ↗</a>${it.info?'<button class="expand-btn">+ d\u2019infos ⌄</button>':''}</div>${it.info?`<div class="info-more">${it.info}</div>`:''}</div>`;
+        row.innerHTML=`<div class="time">${it.time||''}</div><div><div class="text">${it.text}</div><div class="tags"><span class="tag" style="background:${color}">${TYPES[it.type]?TYPES[it.type].label:it.type}</span><span class="tag" style="background:#8C8577">${it.region}</span><a class="map-link" href="${mapsHref}" target="_blank" rel="noopener">Voir sur la carte ↗</a>${it.info?'<button class="expand-btn">+ d\u2019infos ⌄</button>':''}${it.booked===true?'<span class="badge booked">✅ Réservé</span>':''}${it.booked===false?'<span class="badge todo">⏳ À réserver</span>':''}</div>${it.info?`<div class="info-more">${it.info}</div>`:''}</div>`;
         items.appendChild(row);
       });
       d.appendChild(items);
@@ -298,9 +317,25 @@ function build(){
     });
     sec.appendChild(tl);
     main.appendChild(sec);
+    if(etape.transit){
+      const tr=document.createElement('div'); tr.className='transit';
+      tr.textContent=etape.transit;
+      main.appendChild(tr);
+    }
   });
 }
 build();
+
+// Accordéon : plier/déplier une étape au clic sur son en-tête ; replie par défaut les étapes déjà terminées
+document.querySelectorAll('.etape').forEach(sec=>{
+  const head=sec.querySelector('.etape-head');
+  const tl=sec.querySelector('.timeline');
+  head.addEventListener('click',()=>{
+    tl.classList.toggle('collapsed');
+    head.classList.toggle('collapsed');
+  });
+});
+
 
 document.querySelectorAll('.route-svg .stop').forEach(g=>{
   g.addEventListener('click',()=>{
@@ -348,6 +383,23 @@ document.getElementById('shareBtn').addEventListener('click', async ()=>{
     btn.textContent=location.href;
   }
   setTimeout(()=>btn.textContent='Partager le lien ↗',2000);
+});
+
+const themeBtn=document.getElementById('themeBtn');
+function applyTheme(mode){
+  if(mode==='auto'){ document.documentElement.removeAttribute('data-theme'); }
+  else{ document.documentElement.setAttribute('data-theme', mode); }
+  themeBtn.textContent = mode==='auto' ? '🌓 Thème : auto' : (mode==='dark' ? '🌙 Thème : sombre' : '☀️ Thème : clair');
+  try{ localStorage.setItem('themeMode', mode); }catch(e){}
+}
+let savedTheme='auto';
+try{ savedTheme = localStorage.getItem('themeMode') || 'auto'; }catch(e){}
+applyTheme(savedTheme);
+themeBtn.addEventListener('click', ()=>{
+  const order=['auto','light','dark'];
+  const current = (()=>{ try{return localStorage.getItem('themeMode')||'auto';}catch(e){return 'auto';} })();
+  const next = order[(order.indexOf(current)+1)%order.length];
+  applyTheme(next);
 });
 
 main.addEventListener('click', (e)=>{
