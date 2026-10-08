@@ -45,6 +45,11 @@ header.hero p{color:var(--ink-soft);max-width:52ch;margin-top:10px}
 .admin-panel{max-width:760px;margin:0 auto 20px;padding:18px 24px;background:var(--card);border:1px dashed var(--clay);border-radius:12px;display:flex;flex-direction:column;gap:8px}
 .admin-panel input{padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font-family:inherit}
 .photo-gallery{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.admin-panel textarea{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font-family:inherit;resize:vertical}
+.day-note{margin-top:10px;padding:12px 16px;background:var(--paper2);border-left:3px solid var(--moss);border-radius:0 10px 10px 0}
+.day-note .note-label{display:block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--moss);margin-bottom:4px}
+.day-note p{margin:0;font-family:'Shippori Mincho',serif;font-size:.95rem;white-space:pre-line}
+.today-card .tc-note{margin:10px 0 0;padding-top:8px;border-top:1px solid rgba(255,255,255,.35);font-size:.86rem;white-space:pre-line}
 .photo-gallery img{width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
 .badge{font-size:.72rem;padding:2px 9px;border-radius:12px}
 .badge.booked{background:var(--moss);color:var(--paper)}
@@ -152,15 +157,19 @@ footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);f
 </header>
 
 <div id="adminPanel" class="admin-panel" style="display:none">
-  <h3>Module photos (admin)</h3>
+  <h3>Admin</h3>
   <p class="meta">Collez votre token GitHub (fine-grained, droits « Contents: Read & write » sur ce seul repo). Il reste uniquement dans ce navigateur.</p>
   <input type="password" id="ghToken" placeholder="github_pat_...">
-  <label class="meta">Date du jour concerné</label>
+  <label class="meta">Date du jour concerné (photos et compte rendu)</label>
   <input type="date" id="photoDate">
   <label class="meta">Photos (10 max, recompressées automatiquement)</label>
   <input type="file" id="photoFiles" accept="image/*" multiple>
   <button class="share-btn" id="publishPhotos">Publier sur GitHub</button>
   <div id="adminStatus" class="meta"></div>
+  <label class="meta">Compte rendu du jour (optionnel, quelques lignes ; vide + publier = supprimer)</label>
+  <textarea id="noteText" rows="4" maxlength="800" placeholder="Ce qu'on a vu, mangé, aimé aujourd'hui..."></textarea>
+  <button class="share-btn" id="publishNote">Publier le compte rendu</button>
+  <div id="noteStatus" class="meta"></div>
 </div>
 
 <div class="route-wrap">
@@ -298,6 +307,11 @@ const DATA = [
 /* ================= FIN DES DONNÉES ================= */
 
 const NOWISO = new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
+let NOTES = {};
+function fillNoteField(){
+  const ta=document.getElementById('noteText'), d=document.getElementById('photoDate');
+  if(ta && d) ta.value = NOTES[d.value] || '';
+}
 
 /* ===== Config du module photos — à adapter à votre repo ===== */
 const GH_OWNER = "Noexicaise";
@@ -408,6 +422,28 @@ fetch('./photos.json?t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.json():{
   });
 });
 
+// Comptes rendus : lit notes.json à la racine du site (silencieux si absent)
+fetch('./notes.json?t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({})).then(map=>{
+  NOTES = map || {};
+  fillNoteField();
+  Object.entries(NOTES).forEach(([iso, text])=>{
+    if(!text) return;
+    const dayEl=document.querySelector(`.day[data-iso="${iso}"]`);
+    if(dayEl){
+      const n=document.createElement('div'); n.className='day-note';
+      const label=document.createElement('span'); label.className='note-label'; label.textContent='Le carnet du jour';
+      const p=document.createElement('p'); p.textContent=text;
+      n.append(label,p);
+      dayEl.querySelector('.items').after(n);
+    }
+    const tc=document.querySelector('#todayCard .today-card');
+    if(tc && iso===NOWISO){
+      const tp=document.createElement('p'); tp.className='tc-note'; tp.textContent=text;
+      tc.appendChild(tp);
+    }
+  });
+});
+
 document.querySelectorAll('.route-svg .stop').forEach(g=>{
   g.addEventListener('click',()=>{
     const sec=document.querySelector(`.etape[data-etape="${g.dataset.e}"]`);
@@ -502,11 +538,46 @@ if(location.hash==='#admin'){
   async function ghRequest(path, options={}){
     const token=document.getElementById('ghToken').value.trim();
     const res=await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`,{
+      cache:'no-store',
       ...options,
       headers:{ 'Authorization':`Bearer ${token}`, 'Accept':'application/vnd.github+json', ...(options.headers||{}) }
     });
     return res;
   }
+
+  document.getElementById('photoDate').addEventListener('change', fillNoteField);
+
+  document.getElementById('publishNote').addEventListener('click', async ()=>{
+    const st=document.getElementById('noteStatus');
+    const token=document.getElementById('ghToken').value.trim();
+    const date=document.getElementById('photoDate').value;
+    const text=document.getElementById('noteText').value.trim();
+    if(!token || !date){ st.textContent='Token et date requis.'; return; }
+    try{ localStorage.setItem('ghPAT', token); }catch(e){}
+    st.textContent='Envoi en cours...';
+    try{
+      const getRes=await ghRequest(`notes.json?ref=${GH_BRANCH}`);
+      let sha, map={};
+      if(getRes.ok){
+        const data=await getRes.json();
+        sha=data.sha;
+        map=JSON.parse(decodeURIComponent(escape(atob(data.content))));
+      }else if(getRes.status!==404){
+        throw new Error('lecture de notes.json impossible ('+getRes.status+')');
+      }
+      if(text) map[date]=text; else delete map[date];
+      const put=await ghRequest('notes.json',{ method:'PUT', body:JSON.stringify({
+        message:`Compte rendu du ${date}`,
+        content:btoa(unescape(encodeURIComponent(JSON.stringify(map,null,2)))),
+        branch:GH_BRANCH, ...(sha?{sha}:{})
+      })});
+      if(!put.ok) throw new Error('échec de la publication ('+put.status+')');
+      NOTES=map;
+      st.textContent = text ? '✓ Compte rendu publié. En ligne dans ~1 min.' : '✓ Compte rendu supprimé. Disparaît du site dans ~1 min.';
+    }catch(err){
+      st.textContent='Erreur : '+err.message;
+    }
+  });
 
   document.getElementById('publishPhotos').addEventListener('click', async ()=>{
     const statusEl=document.getElementById('adminStatus');
