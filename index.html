@@ -42,9 +42,6 @@ header.hero p{color:var(--ink-soft);max-width:52ch;margin-top:10px}
 .share-btn:hover{border-color:var(--indigo)}
 .etape-head .icon{font-size:1.6rem}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap}
-.today-card{max-width:760px;margin:0 auto 10px;padding:18px 24px;background:var(--card);border:1px solid var(--moss);border-radius:12px}
-.today-label{color:var(--moss);font-weight:700;font-size:.85rem;margin-bottom:4px}
-.today-title{font-family:'Shippori Mincho',serif;font-size:1.15rem;margin-bottom:10px}
 .admin-panel{max-width:760px;margin:0 auto 20px;padding:18px 24px;background:var(--card);border:1px dashed var(--clay);border-radius:12px;display:flex;flex-direction:column;gap:8px}
 .admin-panel input{padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font-family:inherit}
 .photo-gallery{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
@@ -118,18 +115,6 @@ main{max-width:900px;margin:0 auto;padding:36px 24px 90px}
 .day-photos{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .day-photos img{width:92px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
 
-.admin-toggle{background:none;border:none;color:var(--ink-soft);font-size:.75rem;text-decoration:underline;cursor:pointer;font-family:inherit}
-.admin-panel{display:none;max-width:760px;margin:0 auto 60px;padding:0 24px}
-.admin-panel.open{display:block}
-.admin-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
-.admin-box label{display:block;font-size:.82rem;color:var(--ink-soft);margin:12px 0 4px}
-.admin-box select,.admin-box input[type=file]{width:100%;padding:7px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font-family:inherit}
-.admin-box button{margin-top:14px;background:var(--indigo);color:var(--paper);border:none;padding:8px 18px;border-radius:20px;cursor:pointer;font-family:inherit}
-.admin-result{margin-top:16px}
-.admin-thumb{display:inline-flex;flex-direction:column;align-items:center;gap:4px;margin:0 10px 10px 0;font-size:.72rem}
-.admin-thumb img{width:100px;height:78px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
-.admin-snippet{width:100%;font-family:monospace;font-size:.78rem;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);margin-top:10px}
-.admin-copy{background:var(--clay) !important}
 .day-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
 .day-date{font-family:'Shippori Mincho',serif;font-weight:700;color:var(--ink)}
 .day-dow{color:var(--ink-soft);font-size:.82rem}
@@ -166,12 +151,6 @@ footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);f
   </div>
 </header>
 
-<div id="todayCard" class="today-card" style="display:none">
-  <div class="today-label">📍 Aujourd'hui</div>
-  <div class="today-title" id="todayTitle"></div>
-  <div id="todayItems" class="items"></div>
-</div>
-
 <div id="adminPanel" class="admin-panel" style="display:none">
   <h3>Module photos (admin)</h3>
   <p class="meta">Collez votre token GitHub (fine-grained, droits « Contents: Read & write » sur ce seul repo). Il reste uniquement dans ce navigateur.</p>
@@ -198,8 +177,6 @@ footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);f
   </svg>
 </div>
 
-<div id="todayWrap"></div>
-
 <div class="filters">
   <div class="filters-inner">
     <div class="filter-row" id="typeRow"></div>
@@ -210,22 +187,8 @@ footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);f
 
 <main id="main"></main>
 
-<div class="admin-panel" id="adminPanel">
-  <div class="admin-box">
-    <strong>Mode admin — préparer les photos du jour</strong>
-    <p style="font-size:.82rem;color:var(--ink-soft)">Ceci tourne uniquement dans votre navigateur (pas de compte, pas d'envoi). Choisissez un jour et 1 à 3 photos : elles seront redimensionnées, à télécharger dans un dossier <code>photos/</code> à côté d'<code>index.html</code>, puis collez la ligne générée dans l'entrée du jour correspondant dans <code>DATA</code> avant de commit/push.</p>
-    <label for="dayPick">Jour</label>
-    <select id="dayPick"></select>
-    <label for="photoFiles">Photos (jusqu'à 3)</label>
-    <input type="file" id="photoFiles" accept="image/*" multiple>
-    <button id="processPhotos">Préparer les photos</button>
-    <div class="admin-result" id="adminResult"></div>
-  </div>
-</div>
-
 <footer>
   Carnet de route — ajustable directement dans le fichier <code>DATA</code> ci-dessous dans le code source.
-  <div><button class="admin-toggle" id="adminToggle">🔧 Mode admin</button></div>
 </footer>
 
 <script>
@@ -422,22 +385,6 @@ document.querySelectorAll('.etape').forEach(sec=>{
 });
 
 
-// Encart "Aujourd'hui"
-if(NOWISO>=DATA[0].days[0].iso && NOWISO<=DATA[DATA.length-1].days[DATA[DATA.length-1].days.length-1].iso){
-  let todayDay=null;
-  DATA.forEach(e=>e.days.forEach(d=>{ if(d.iso===NOWISO) todayDay=d; }));
-  if(todayDay){
-    document.getElementById('todayCard').style.display='block';
-    document.getElementById('todayTitle').textContent = todayDay.date+' — '+todayDay.title;
-    const wrap=document.getElementById('todayItems');
-    todayDay.items.forEach(it=>{
-      const row=document.createElement('div'); row.className='item';
-      row.innerHTML=`<div class="time">${it.time||''}</div><div><div class="text">${it.text}</div></div>`;
-      wrap.appendChild(row);
-    });
-  }
-}
-
 // Panneau admin, visible seulement sur index.html#admin
 if(location.hash==='#admin'){
   document.getElementById('adminPanel').style.display='flex';
@@ -447,7 +394,7 @@ if(location.hash==='#admin'){
 }
 
 // Galerie photo par jour : lit photos.json à la racine du site (silencieux si absent)
-fetch('./photos.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(photoMap=>{
+fetch('./photos.json?t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({})).then(photoMap=>{
   Object.entries(photoMap).forEach(([iso, paths])=>{
     const dayEl=document.querySelector(`.day[data-iso="${iso}"]`);
     if(!dayEl || !paths.length) return;
@@ -468,16 +415,16 @@ document.querySelectorAll('.route-svg .stop').forEach(g=>{
   });
 });
 
-const START=new Date('2026-10-16T00:00:00');
-const END=new Date('2026-11-03T23:59:59');
+const START_ISO='2026-10-16';
+const END_ISO='2026-11-03';
 const NOW=new Date();
 const TOTAL=19;
 const statusEl=document.getElementById('tripStatus');
-if(NOW<START){
-  const j=Math.ceil((START-NOW)/86400000);
+if(NOWISO<START_ISO){
+  const j=Math.round((Date.parse(START_ISO)-Date.parse(NOWISO))/86400000);
   statusEl.innerHTML=`<span class="countdown">J-${j} avant le départ</span>`;
-}else if(NOW<=END){
-  const day=Math.floor((NOW-START)/86400000)+1;
+}else if(NOWISO<=END_ISO){
+  const day=Math.round((Date.parse(NOWISO)-Date.parse(START_ISO))/86400000)+1;
   const pct=Math.round(day/TOTAL*100);
   statusEl.innerHTML=`<div class="progress-wrap"><div class="progress-label">Jour ${day} / ${TOTAL}</div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div>`;
 }else{
@@ -487,7 +434,7 @@ if(NOW<START){
 // Position actuelle sur la carte schématique
 const todayISO2 = NOW.toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
 let currentEtape = 'bxl';
-if(NOW>=START && NOW<=END){
+if(NOWISO>=START_ISO && NOWISO<=END_ISO){
   DATA.forEach((etape,ei)=>{
     etape.days.forEach(day=>{
       if(day.iso===todayISO2) currentEtape = String(ei);
@@ -535,62 +482,6 @@ themeBtn.addEventListener('click', ()=>{
   applyTheme(next);
 });
 
-// Module admin : préparation des photos du jour (traitement 100% local, aucun envoi)
-const adminToggle=document.getElementById('adminToggle');
-const adminPanel=document.getElementById('adminPanel');
-adminToggle.addEventListener('click', ()=> adminPanel.classList.toggle('open'));
-
-const dayPick=document.getElementById('dayPick');
-DATA.forEach(etape=>{
-  etape.days.forEach(day=>{
-    const opt=document.createElement('option');
-    opt.value=day.iso; opt.textContent=`${day.date} — ${day.title}`;
-    dayPick.appendChild(opt);
-  });
-});
-
-function resizeImage(file, maxW){
-  return new Promise((resolve)=>{
-    const img=new Image();
-    const reader=new FileReader();
-    reader.onload=e=>{ img.src=e.target.result; };
-    img.onload=()=>{
-      const scale=Math.min(1, maxW/img.width);
-      const w=Math.round(img.width*scale), h=Math.round(img.height*scale);
-      const canvas=document.createElement('canvas');
-      canvas.width=w; canvas.height=h;
-      canvas.getContext('2d').drawImage(img,0,0,w,h);
-      canvas.toBlob(blob=>resolve(blob), 'image/jpeg', 0.72);
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-document.getElementById('processPhotos').addEventListener('click', async ()=>{
-  const files=[...document.getElementById('photoFiles').files].slice(0,10);
-  const iso=dayPick.value;
-  const resultEl=document.getElementById('adminResult');
-  if(!files.length){ resultEl.innerHTML='Choisissez au moins une photo.'; return; }
-  resultEl.innerHTML='Traitement…';
-  const paths=[];
-  const thumbsHtml=[];
-  for(let i=0;i<files.length;i++){
-    const blob=await resizeImage(files[i], 1000);
-    const url=URL.createObjectURL(blob);
-    const filename=`photos/${iso}-${i+1}.jpg`;
-    paths.push(filename);
-    thumbsHtml.push(`<div class="admin-thumb"><img src="${url}"><a href="${url}" download="${iso}-${i+1}.jpg">⬇ ${iso}-${i+1}.jpg</a></div>`);
-  }
-  const snippet = `photos:[${paths.map(p=>`"${p}"`).join(', ')}]`;
-  resultEl.innerHTML = `<div>${thumbsHtml.join('')}</div>
-    <p style="font-size:.8rem;color:var(--ink-soft)">1. Téléchargez les images ci-dessus et placez-les dans <code>photos/</code> dans le repo.<br>2. Collez cette ligne dans l'entrée du jour (<code>${iso}</code>) dans <code>DATA</code>, juste après <code>title:"..."</code> :</p>
-    <textarea class="admin-snippet" rows="2" readonly>${snippet}</textarea>
-    <button class="admin-copy" id="copySnippet">Copier la ligne</button>`;
-  document.getElementById('copySnippet').addEventListener('click', async ()=>{
-    try{ await navigator.clipboard.writeText(snippet); document.getElementById('copySnippet').textContent='Copié ✓'; }catch(e){}
-  });
-});
-
 if(location.hash==='#admin'){
   function resizeToBase64(file, maxW=1600, quality=0.8){
     return new Promise((resolve,reject)=>{
@@ -621,7 +512,7 @@ if(location.hash==='#admin'){
     const statusEl=document.getElementById('adminStatus');
     const token=document.getElementById('ghToken').value.trim();
     const date=document.getElementById('photoDate').value; // yyyy-mm-dd
-    const files=[...document.getElementById('photoFiles').files].slice(0,3);
+    const files=[...document.getElementById('photoFiles').files].slice(0,10);
     if(!token || !date || files.length===0){ statusEl.textContent='Token, date et au moins une photo sont requis.'; return; }
     try{ localStorage.setItem('ghPAT', token); }catch(e){}
 
