@@ -178,7 +178,7 @@ footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);f
   <input type="password" id="ghToken" placeholder="github_pat_...">
   <label class="meta">Date du jour concerné</label>
   <input type="date" id="photoDate">
-  <label class="meta">Photos (3 max, recompressées automatiquement)</label>
+  <label class="meta">Photos (10 max, recompressées automatiquement)</label>
   <input type="file" id="photoFiles" accept="image/*" multiple>
   <button class="share-btn" id="publishPhotos">Publier sur GitHub</button>
   <div id="adminStatus" class="meta"></div>
@@ -334,11 +334,11 @@ const DATA = [
 ];
 /* ================= FIN DES DONNÉES ================= */
 
-const NOWISO = new Date().toISOString().slice(0,10);
+const NOWISO = new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
 
 /* ===== Config du module photos — à adapter à votre repo ===== */
-const GH_OWNER = "VOTRE-PSEUDO-GITHUB";
-const GH_REPO = "VOTRE-REPO";
+const GH_OWNER = "Noexicaise";
+const GH_REPO = "Japon";
 const GH_BRANCH = "main";
 
 const regionOf = new Set();
@@ -373,7 +373,7 @@ function build(){
     const isPast = lastIso < NOWISO;
     sec.innerHTML=`<div class="etape-head${isPast?' collapsed':''}"><span class="icon">${etape.icon||''}</span><h2>${etape.etape}</h2><span class="meta">${etape.meta}</span>${weatherHtml}<span class="chevron">▾</span></div>`;
     const tl=document.createElement('div'); tl.className='timeline'+(isPast?' collapsed':'');
-    const todayISO = new Date().toISOString().slice(0,10);
+    const todayISO = new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
     etape.days.forEach(day=>{
       const d=document.createElement('div'); d.className='day';
       d.dataset.iso = day.iso;
@@ -453,8 +453,9 @@ fetch('./photos.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(photoMap=>
     if(!dayEl || !paths.length) return;
     const gal=document.createElement('div'); gal.className='photo-gallery';
     paths.forEach(p=>{
+      const a=document.createElement('a'); a.href=p; a.target='_blank'; a.rel='noopener';
       const img=document.createElement('img'); img.src=p; img.loading='lazy'; img.alt='Photo du voyage';
-      gal.appendChild(img);
+      a.appendChild(img); gal.appendChild(a);
     });
     dayEl.appendChild(gal);
   });
@@ -484,7 +485,7 @@ if(NOW<START){
 }
 
 // Position actuelle sur la carte schématique
-const todayISO2 = NOW.toISOString().slice(0,10);
+const todayISO2 = NOW.toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
 let currentEtape = 'bxl';
 if(NOW>=START && NOW<=END){
   DATA.forEach((etape,ei)=>{
@@ -566,7 +567,7 @@ function resizeImage(file, maxW){
 }
 
 document.getElementById('processPhotos').addEventListener('click', async ()=>{
-  const files=[...document.getElementById('photoFiles').files].slice(0,3);
+  const files=[...document.getElementById('photoFiles').files].slice(0,10);
   const iso=dayPick.value;
   const resultEl=document.getElementById('adminResult');
   if(!files.length){ resultEl.innerHTML='Choisissez au moins une photo.'; return; }
@@ -626,17 +627,21 @@ if(location.hash==='#admin'){
 
     statusEl.textContent='Envoi en cours...';
     try{
-      const newPaths=[];
+      const newPaths=[]; let failed=0;
       for(let i=0;i<files.length;i++){
         statusEl.textContent=`Compression et envoi ${i+1}/${files.length}...`;
-        const b64=await resizeToBase64(files[i]);
-        const path=`photos/${date}-${Date.now()}-${i}.jpg`;
-        const put=await ghRequest(path,{ method:'PUT', body:JSON.stringify({
-          message:`Ajout photo ${date}`, content:b64, branch:GH_BRANCH
-        })});
-        if(!put.ok) throw new Error('Échec upload photo ('+put.status+')');
-        newPaths.push(path);
+        try{
+          const b64=await resizeToBase64(files[i]);
+          const path=`photos/${date}-${Date.now()}-${i}.jpg`;
+          const put=await ghRequest(path,{ method:'PUT', body:JSON.stringify({
+            message:`Ajout photo ${date}`, content:b64, branch:GH_BRANCH
+          })});
+          if(!put.ok) throw new Error('Échec upload photo ('+put.status+')');
+          newPaths.push(path);
+        }catch(e){ failed++; }
+        await new Promise(r=>setTimeout(r,1000));
       }
+      if(newPaths.length===0) throw new Error("aucune photo n'a pu être envoyée (vérifiez le token et la connexion).");
 
       statusEl.textContent='Mise à jour de photos.json...';
       const getRes=await ghRequest(`photos.json?ref=${GH_BRANCH}`);
@@ -653,7 +658,7 @@ if(location.hash==='#admin'){
       })});
       if(!putJson.ok) throw new Error('Échec mise à jour photos.json ('+putJson.status+')');
 
-      statusEl.textContent=`✓ ${files.length} photo(s) publiée(s). En ligne dans ~1 min après republication GitHub Pages.`;
+      statusEl.textContent=`✓ ${newPaths.length}/${files.length} photo(s) publiée(s)`+(failed?` — ${failed} en échec, relancez avec celles-ci.`:'')+` En ligne dans ~1 min après republication GitHub Pages.`;
     }catch(err){
       statusEl.textContent='Erreur : '+err.message;
     }
