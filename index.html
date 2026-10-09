@@ -4,143 +4,188 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Japon — Carnet de route</title>
+<meta name="description" content="Notre voyage au Japon du 16 octobre au 3 novembre 2026 : itinéraire, comptes rendus et photos, jour après jour.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F6F2E9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#211F1B" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Japon — Carnet de route">
+<meta property="og:description" content="Notre voyage au Japon, du 16 octobre au 3 novembre 2026 : suivez-nous jour après jour.">
+<meta property="og:url" content="https://noexicaise.github.io/Japon/">
+<meta property="og:image" content="https://noexicaise.github.io/Japon/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Japon, carnet de route — 16 octobre → 3 novembre 2026">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-title" content="Japon">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F6F2E9; --paper2:#EFE9DB; --ink:#2B2A26; --ink-soft:#6B6455;
-  --indigo:#3C4A54; --clay:#B0654A; --moss:#7C8A6E; --sand:#C9A876;
-  --line:#D9D0BC; --card:#FBF9F4;
+  color-scheme:light;
+  --paper:#F6F2E9; --paper2:#EFE9DB; --card:#FBF9F4; --ink:#2B2A26; --ink-soft:#6B6455; --line:#D9D0BC;
+  --indigo:#3C4A54; --clay:#A65A40; --moss:#7C8A6E; --sand:#C9A876;
+  --indigo-ink:#3C4A54; --clay-ink:#A0523A; --moss-ink:#566349;
+  --on-dark:#FBF9F4; --on-light:#1F1D19;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --paper:#211F1B; --paper2:#2A2822; --ink:#EDE7D9; --ink-soft:#B6AD98;
-    --card:#2A2822; --line:#453F35;
+    color-scheme:dark;
+    --paper:#211F1B; --paper2:#2A2822; --card:#2A2822; --ink:#EDE7D9; --ink-soft:#B6AD98; --line:#453F35;
+    --indigo-ink:#A9BDCB; --clay-ink:#E3A38C; --moss-ink:#A8B898;
   }
 }
 :root[data-theme="dark"]{
-  --paper:#211F1B; --paper2:#2A2822; --ink:#EDE7D9; --ink-soft:#B6AD98;
-  --card:#2A2822; --line:#453F35;
+  color-scheme:dark;
+  --paper:#211F1B; --paper2:#2A2822; --card:#2A2822; --ink:#EDE7D9; --ink-soft:#B6AD98; --line:#453F35;
+  --indigo-ink:#A9BDCB; --clay-ink:#E3A38C; --moss-ink:#A8B898;
 }
 *{box-sizing:inherit}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+[hidden]{display:none !important}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:'Zen Maru Gothic',sans-serif;line-height:1.6}
-h1,h2,h3{font-family:'Shippori Mincho',serif;font-weight:700;margin:0}
-header.hero{padding:56px 24px 36px;max-width:760px;margin:0 auto;text-align:left}
-.kicker{color:var(--clay);font-size:.95rem;letter-spacing:.02em;margin-bottom:8px}
-header.hero h1{font-size:2.4rem;color:var(--ink)}
-header.hero p{color:var(--ink-soft);max-width:52ch;margin-top:10px}
+h1,h2,h3,h4{font-family:'Shippori Mincho',serif;font-weight:700;margin:0}
+:focus-visible{outline:2px solid var(--indigo-ink);outline-offset:2px;border-radius:4px}
+.meta{color:var(--ink-soft);font-size:.85rem}
+
+/* En-tête */
+header.hero{padding:56px 24px 28px;max-width:760px;margin:0 auto}
+.kicker{color:var(--clay-ink);font-size:.95rem;letter-spacing:.02em;margin-bottom:8px}
+header.hero h1{font-size:2.4rem}
+header.hero p.lead{color:var(--ink-soft);max-width:52ch;margin:14px 0 0}
 .trip-status{margin-top:14px}
-.trip-status .countdown{display:inline-block;background:var(--clay);color:var(--paper);padding:4px 14px;border-radius:20px;font-size:.85rem}
+.countdown{display:inline-block;background:var(--clay);color:var(--on-dark);padding:4px 14px;border-radius:20px;font-size:.85rem}
 .progress-wrap{max-width:320px}
 .progress-label{font-size:.8rem;color:var(--ink-soft);margin-bottom:5px}
 .progress-bar{height:6px;background:var(--paper2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
 .progress-fill{height:100%;background:var(--moss)}
-.share-btn{margin-top:16px;border:1px solid var(--line);background:var(--card);color:var(--indigo);padding:7px 16px;border-radius:20px;font-family:inherit;font-size:.85rem;cursor:pointer}
-.share-btn:hover{border-color:var(--indigo)}
-.etape-head .icon{font-size:1.6rem}
-.btn-row{display:flex;gap:10px;flex-wrap:wrap}
-.admin-panel{max-width:760px;margin:0 auto 20px;padding:18px 24px;background:var(--card);border:1px dashed var(--clay);border-radius:12px;display:flex;flex-direction:column;gap:8px}
-.admin-panel input{padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font-family:inherit}
-.photo-gallery{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-.admin-panel textarea{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font-family:inherit;resize:vertical}
-.day-note{margin-top:10px;padding:12px 16px;background:var(--paper2);border-left:3px solid var(--moss);border-radius:0 10px 10px 0}
-.day-note .note-label{display:block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--moss);margin-bottom:4px}
-.day-note p{margin:0;font-family:'Shippori Mincho',serif;font-size:.95rem;white-space:pre-line}
-.today-card .tc-note{margin:10px 0 0;padding-top:8px;border-top:1px solid rgba(255,255,255,.35);font-size:.86rem;white-space:pre-line}
-.photo-gallery img{width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
-.badge{font-size:.72rem;padding:2px 9px;border-radius:12px}
-.badge.booked{background:var(--moss);color:var(--paper)}
-.badge.todo{background:var(--sand);color:#3a3324}
-.etape-head{cursor:pointer;user-select:none}
-.etape-head .weather{margin-left:auto}
-.chevron{color:var(--ink-soft);font-size:.8rem;transition:transform .2s;flex-shrink:0;padding-top:2px}
-.etape-head.collapsed .chevron{transform:rotate(-90deg)}
-.timeline{max-height:4000px;overflow:hidden;transition:max-height .3s ease}
-.timeline.collapsed{max-height:0}
-.transit{max-width:900px;margin:-30px auto 40px;padding-left:50px;color:var(--ink-soft);font-size:.85rem;font-style:italic}
-@media print{ .timeline.collapsed{max-height:none !important} .etape-head{cursor:default} .chevron{display:none} }
-@media print{
-  .filters,.route-wrap,.share-btn,.trip-status,.map-link{display:none !important}
-  body{background:#fff;color:#000}
-  .item.hide,.day.hide,.etape.hide{display:block !important}
-  .day{page-break-inside:avoid}
-  .item{border:1px solid #ccc}
-}
+.clocks{margin-top:10px;font-size:.82rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--indigo-ink);padding:8px 16px;min-height:40px;border-radius:20px;font-family:inherit;font-size:.85rem;cursor:pointer}
+.btn:hover{border-color:var(--indigo-ink)}
 
-.route-wrap{max-width:760px;margin:0 auto 10px;padding:0 24px}
-.route-svg{width:100%;height:auto;overflow:visible}
-.route-svg circle{fill:var(--clay);cursor:pointer;transition:r .15s}
-.route-svg .stop:hover circle{fill:var(--indigo)}
-.route-svg text{font-family:'Zen Maru Gothic',sans-serif;font-size:11px;fill:var(--ink-soft);text-anchor:middle;cursor:pointer}
-.route-svg .stop.current circle{fill:var(--moss)}
-.route-svg .stop.current text{fill:var(--moss);font-weight:700}
-.route-svg .stop.current circle{animation:pulse 1.8s ease-in-out infinite}
-@keyframes pulse{0%,100%{r:7}50%{r:10}}
-.route-svg .stop.home circle{fill:var(--sand)}
-.route-svg .stop.home text{fill:var(--sand)}
-.current-ring{fill:none;stroke:var(--moss);stroke-width:2;opacity:0;animation:pulseRing 2.2s ease-out infinite}
-@keyframes pulseRing{0%{r:8;opacity:.9}100%{r:22;opacity:0}}
-
-.filters{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line);padding:14px 24px;backdrop-filter:blur(4px)}.filters-inner{max-width:900px;margin:0 auto}
-.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-.filter-row:last-child{margin-bottom:0}
-.chip{border:1px solid var(--line);background:var(--card);color:var(--ink-soft);padding:5px 13px;border-radius:20px;font-size:.82rem;cursor:pointer;font-family:inherit;transition:background .15s,color .15s,border-color .15s}
-.chip.active{background:var(--indigo);border-color:var(--indigo);color:var(--paper)}
-.chip[data-cat="region"].active{background:var(--moss);border-color:var(--moss)}
-.reset{border:none;background:none;color:var(--clay);font-size:.8rem;cursor:pointer;text-decoration:underline;padding:5px 4px}
-
-main{max-width:900px;margin:0 auto;padding:36px 24px 90px}
-.etape{margin-bottom:52px}
-.etape-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:12px}
-.etape-head h2{font-size:1.5rem;color:var(--indigo)}
-.etape-head .meta{color:var(--ink-soft);font-size:.85rem}
-
-.timeline{position:relative;padding-left:26px;border-left:1px solid var(--line)}
-.day{position:relative;margin-bottom:28px}
-.day::before{content:"";position:absolute;left:-31px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--clay)}
-.day.today::before{background:var(--moss);width:13px;height:13px;left:-33px;box-shadow:0 0 0 4px rgba(124,138,110,.25)}
-.day.today .day-head{background:var(--moss);color:var(--paper);display:inline-flex;padding:2px 10px;border-radius:8px}
-.day.today .day-dow,.day.today .day-title{color:var(--paper)}
-.map-link{font-size:.72rem;color:var(--indigo);text-decoration:none;border-bottom:1px dotted var(--indigo)}
-:root[data-theme] .map-link, .map-link{opacity:.85}
-.expand-btn{font-size:.72rem;color:var(--clay);background:none;border:none;text-decoration:underline;cursor:pointer;font-family:inherit;padding:0}
-.item .info-more{display:none;margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);font-size:.86rem;color:var(--ink-soft)}
-.item.expanded .info-more{display:block}
-@media print{ .item .info-more{display:block !important} .expand-btn{display:none} }
-
-.today-card{margin-top:18px;background:var(--moss);color:var(--paper);border-radius:12px;padding:16px 20px;max-width:620px}
-.today-card .tc-label{font-size:.78rem;opacity:.85;text-transform:uppercase;letter-spacing:.04em}
+/* Encart du jour */
+.today-card{margin-top:18px;background:var(--moss);color:var(--on-light);border-radius:12px;padding:16px 20px;max-width:620px}
+.today-card .tc-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
 .today-card h3{font-family:'Zen Maru Gothic',sans-serif;font-size:1.1rem;margin:4px 0 8px}
 .today-card ul{margin:0;padding-left:18px;font-size:.88rem}
 .today-card li{margin-bottom:3px}
+.today-card .tc-note{margin:10px 0 0;padding-top:8px;border-top:1px solid rgba(31,29,25,.3);font-size:.86rem;white-space:pre-line}
 
-.day-photos{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.day-photos img{width:92px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+/* Carte schématique */
+.route-wrap{max-width:760px;margin:0 auto 10px;padding:0 24px}
+.route-svg{width:100%;height:auto;overflow:visible}
+.route-svg circle{fill:var(--clay);cursor:pointer}
+.route-svg .stop:hover circle{fill:var(--indigo-ink)}
+.route-svg text{font-family:'Zen Maru Gothic',sans-serif;font-size:11px;fill:var(--ink-soft);text-anchor:middle;cursor:pointer}
+.route-svg .stop.home circle{fill:var(--sand)}
+.route-svg .stop.current circle{fill:var(--moss);animation:pulse 1.8s ease-in-out infinite}
+.route-svg .stop.current text{fill:var(--moss-ink);font-weight:700}
+@keyframes pulse{0%,100%{r:7}50%{r:10}}
 
+/* Filtres */
+.filters{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line);padding:12px 24px;backdrop-filter:blur(4px)}
+.filters-inner{max-width:900px;margin:0 auto}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink-soft);padding:6px 14px;min-height:36px;border-radius:20px;font-size:.82rem;cursor:pointer;font-family:inherit}
+.chip.active{background:var(--indigo);border-color:var(--indigo);color:var(--on-dark)}
+.chip[data-cat="region"].active{background:var(--moss);border-color:var(--moss);color:var(--on-light)}
+.reset{border:none;background:none;color:var(--clay-ink);font-size:.82rem;cursor:pointer;text-decoration:underline;padding:8px 4px;font-family:inherit}
+
+/* Étapes */
+main{max-width:900px;margin:0 auto;padding:36px 24px 90px}
+.etape{margin-bottom:40px}
+.etape-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:12px;cursor:pointer;user-select:none}
+.etape-head .icon{font-size:1.6rem}
+.etape-head h2{font-size:1.5rem}
+.etape-btn{all:unset;cursor:pointer;color:var(--indigo-ink)}
+.etape-btn:focus-visible{outline:2px solid var(--indigo-ink);outline-offset:3px;border-radius:4px}
+.etape-head .weather{margin-left:auto}
+.chevron{color:var(--ink-soft);font-size:.8rem;transition:transform .2s}
+.etape-head.collapsed .chevron{transform:rotate(-90deg)}
+.timeline{position:relative;padding-left:26px;border-left:1px solid var(--line)}
+.timeline.collapsed{display:none}
+main.filtering .timeline.collapsed{display:block}
+.transit{margin:-20px 0 36px 50px;color:var(--ink-soft);font-size:.85rem;font-style:italic}
+
+/* Jours */
+.day{position:relative;margin-bottom:28px;border-radius:10px}
+.day::before{content:"";position:absolute;left:-31px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--clay)}
+.day.today::before{background:var(--moss);width:13px;height:13px;left:-33px;box-shadow:0 0 0 4px rgba(124,138,110,.3)}
+.day.flash{animation:flash 2.4s ease-out}
+@keyframes flash{0%{box-shadow:0 0 0 6px rgba(124,138,110,.55)}100%{box-shadow:0 0 0 6px rgba(124,138,110,0)}}
 .day-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
-.day-date{font-family:'Shippori Mincho',serif;font-weight:700;color:var(--ink)}
-.day-dow{color:var(--ink-soft);font-size:.82rem}
-.day-title{color:var(--ink-soft);font-size:.92rem}
+.day-date{font-family:'Shippori Mincho',serif;font-weight:700}
+.day-dow,.day-title{color:var(--ink-soft);font-size:.9rem}
+.day.today .day-head{background:var(--moss);color:var(--on-light);display:inline-flex;padding:2px 10px;border-radius:8px}
+.day.today .day-date,.day.today .day-dow,.day.today .day-title{color:var(--on-light)}
 .items{display:flex;flex-direction:column;gap:8px}
 .item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
-.item-row{display:grid;grid-template-columns:56px 1fr;gap:12px}
-.item .time{color:var(--ink-soft);font-size:.78rem;padding-top:2px}
-.item-main{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;cursor:pointer}
+.item .time{color:var(--ink-soft);font-size:.78rem}
 .item .text{font-size:.95rem}
-.chevron{color:var(--ink-soft);font-size:.8rem;transition:transform .2s;flex-shrink:0;padding-top:2px}
-.item.open .chevron{transform:rotate(180deg)}
-.item-detail{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--ink-soft);font-size:.85rem;line-height:1.55}
-.item.open .item-detail{display:block}
-.tags{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
-.tag{font-size:.72rem;padding:2px 9px;border-radius:12px;color:var(--paper)}
-.item.hide{display:none}
-.day.hide{display:none}
-.etape.hide{display:none}
+.item.hide,.day.hide,.etape.hide{display:none}
+.tags{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;align-items:center}
+.tag{font-size:.72rem;padding:2px 9px;border-radius:12px}
+.badge{font-size:.72rem;padding:2px 9px;border-radius:12px}
+.badge.booked{background:var(--moss);color:var(--on-light)}
+.badge.todo{background:var(--sand);color:var(--on-light)}
+.map-link,.expand-btn{display:inline-flex;align-items:center;min-height:34px;padding:0 6px;font-size:.74rem;font-family:inherit;background:none;border:none;cursor:pointer}
+.map-link{color:var(--indigo-ink);text-decoration:underline dotted}
+.expand-btn{color:var(--clay-ink);text-decoration:underline}
+.item .info-more{display:none;margin-top:6px;padding-top:9px;border-top:1px dashed var(--line);font-size:.86rem;color:var(--ink-soft)}
+.item.expanded .info-more{display:block}
+
+/* Compte rendu et photos */
+.day-note{margin-top:10px;padding:12px 16px;background:var(--paper2);border-left:3px solid var(--moss);border-radius:0 10px 10px 0}
+.day-note .note-label{display:block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--moss-ink);margin-bottom:4px}
+.day-note p{margin:0;font-family:'Shippori Mincho',serif;font-size:.95rem;white-space:pre-line}
+.photo-gallery{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.ph{padding:0;border:0;background:none;cursor:zoom-in;border-radius:8px;line-height:0}
+.ph img{width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+
+/* Visionneuse */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(20,18,15,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 12px) 12px calc(env(safe-area-inset-bottom,0px) + 12px)}
+.lb img{max-width:100%;max-height:76vh;object-fit:contain;border-radius:6px}
+.lb-cap{color:#EDE7D9;font-size:.9rem;margin:12px 0 0;text-align:center;max-width:60ch;min-height:1.5em;white-space:pre-line}
+.lb-btn{position:absolute;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.16);color:#fff;font-size:1.3rem;cursor:pointer}
+.lb-close{top:calc(env(safe-area-inset-top,0px) + 12px);right:12px}
+.lb-prev{left:10px;top:50%;transform:translateY(-50%)}
+.lb-next{right:10px;top:50%;transform:translateY(-50%)}
+
+/* Admin */
+.admin-panel{max-width:760px;margin:0 auto 20px;padding:18px 24px;background:var(--card);border:1px dashed var(--clay);border-radius:12px;display:flex;flex-direction:column;gap:8px}
+.admin-panel label{font-size:.82rem;color:var(--ink-soft)}
+.admin-panel input,.admin-panel textarea{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:1rem;width:100%}
+.admin-panel textarea{resize:vertical}
+.admin-panel textarea.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem}
+.admin-panel details{border-top:1px solid var(--line);padding-top:8px}
+.admin-panel summary{cursor:pointer;font-family:'Shippori Mincho',serif;font-weight:700;padding:6px 0}
+.admin-panel details>*{margin-top:8px}
+.admin-panel .btn{align-self:flex-start}
+.ex-row{display:flex;gap:8px;align-items:center}
+.ex-row img{width:48px;height:48px;object-fit:cover;border-radius:6px;flex-shrink:0}
+.ex-row input[type=checkbox]{width:auto}
+.ex-row label{white-space:nowrap}
 
 footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);font-size:.8rem}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+}
+@media print{
+  .filters,.route-wrap,.btn-row,.trip-status,.clocks,.map-link,.expand-btn,.admin-panel,.lb,.chevron{display:none !important}
+  body{background:#fff;color:#000}
+  .timeline.collapsed{display:block !important}
+  .item.hide,.day.hide,.etape.hide{display:block !important}
+  .item .info-more{display:block !important}
+  .day{break-inside:avoid}
+  .item{border:1px solid #ccc}
+}
 </style>
 </head>
 <body>
@@ -148,41 +193,64 @@ footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);f
   <div class="kicker">16 octobre — 3 novembre</div>
   <h1>Japon, un carnet de route</h1>
   <div class="trip-status" id="tripStatus"></div>
+  <div class="clocks" id="clocks" aria-label="Heures locales"></div>
   <div id="todayCard"></div>
-  <p>Osaka, Kyoto &amp; Nara, la Shimanami Kaido, Hakone puis Tokyo — 19 jours à suivre au fil de l'eau. Filtrez par type d'activité ou par région pour suivre une partie du trajet.</p>
+  <p class="lead">Osaka, Kyoto &amp; Nara, la Shimanami Kaido, Hakone puis Tokyo — 19 jours à suivre au fil de l'eau. Filtrez par type d'activité ou par région pour suivre une partie du trajet.</p>
   <div class="btn-row">
-    <button class="share-btn" id="shareBtn">Partager le lien ↗</button>
-    <button class="share-btn" id="themeBtn">🌓 Thème : auto</button>
+    <button class="btn" id="shareBtn" type="button">Partager le lien ↗</button>
+    <button class="btn" id="themeBtn" type="button">🌓 Thème : auto</button>
   </div>
 </header>
 
-<div id="adminPanel" class="admin-panel" style="display:none">
+<section id="adminPanel" class="admin-panel" hidden>
   <h3>Admin</h3>
-  <p class="meta">Collez votre token GitHub (fine-grained, droits « Contents: Read & write » sur ce seul repo). Il reste uniquement dans ce navigateur.</p>
-  <input type="password" id="ghToken" placeholder="github_pat_...">
-  <label class="meta">Date du jour concerné (photos et compte rendu)</label>
+  <p class="meta">Token GitHub (fine-grained, « Contents : Read and write » sur ce seul dépôt). Il reste uniquement dans ce navigateur.</p>
+  <label for="ghToken">Token GitHub</label>
+  <input type="password" id="ghToken" autocomplete="off" placeholder="github_pat_...">
+  <label for="photoDate">Date du jour concerné</label>
   <input type="date" id="photoDate">
-  <label class="meta">Photos (10 max, recompressées automatiquement)</label>
-  <input type="file" id="photoFiles" accept="image/*" multiple>
-  <button class="share-btn" id="publishPhotos">Publier sur GitHub</button>
-  <div id="adminStatus" class="meta"></div>
-  <label class="meta">Compte rendu du jour (optionnel, quelques lignes ; vide + publier = supprimer)</label>
-  <textarea id="noteText" rows="4" maxlength="800" placeholder="Ce qu'on a vu, mangé, aimé aujourd'hui..."></textarea>
-  <button class="share-btn" id="publishNote">Publier le compte rendu</button>
-  <div id="noteStatus" class="meta"></div>
-</div>
+
+  <details open>
+    <summary>Photos</summary>
+    <label for="photoFiles">Nouvelles photos (10 max, recompressées automatiquement)</label>
+    <input type="file" id="photoFiles" accept="image/*" multiple>
+    <div id="newCaps"></div>
+    <button class="btn" id="publishPhotos" type="button">Publier les photos</button>
+    <div id="adminStatus" class="meta" role="status"></div>
+    <h4>Déjà publiées ce jour-là</h4>
+    <div id="existing"></div>
+    <button class="btn" id="savePhotoEdits" type="button">Enregistrer légendes et suppressions</button>
+    <div id="editStatus" class="meta" role="status"></div>
+  </details>
+
+  <details open>
+    <summary>Compte rendu</summary>
+    <label for="noteText">Quelques lignes (optionnel ; vide + publier = supprimer)</label>
+    <textarea id="noteText" rows="4" maxlength="800" placeholder="Ce qu'on a vu, mangé, aimé aujourd'hui..."></textarea>
+    <button class="btn" id="publishNote" type="button">Publier le compte rendu</button>
+    <button class="btn" id="shareNote" type="button" hidden>Partager ce compte rendu ↗</button>
+    <div id="noteStatus" class="meta" role="status"></div>
+  </details>
+
+  <details>
+    <summary>Planning du jour (avancé)</summary>
+    <label for="planText">Titre et activités de ce jour, au format JSON</label>
+    <textarea id="planText" class="mono" rows="10" spellcheck="false"></textarea>
+    <button class="btn" id="savePlan" type="button">Enregistrer le planning du jour</button>
+    <div id="planStatus" class="meta" role="status"></div>
+  </details>
+</section>
 
 <div class="route-wrap">
-  <svg class="route-svg" viewBox="0 0 600 200" role="img" aria-label="Schéma du trajet">
+  <svg class="route-svg" viewBox="0 0 600 200" role="group" aria-label="Schéma du trajet">
     <path d="M120,150 L230,120 L150,100 L470,60 L540,35" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="5,6"/>
     <path d="M30,25 L120,150" fill="none" stroke="var(--ink-soft)" stroke-width="1.2" stroke-dasharray="2,4" opacity=".5"/>
     <g class="stop home" data-e="bxl" id="stopBxl"><circle cx="30" cy="25" r="6"/><text x="30" y="14">Bruxelles</text></g>
-    <g class="stop" data-e="0"><circle cx="120" cy="150" r="7"/><text x="120" y="172">Osaka</text></g>
-    <g class="stop" data-e="1"><circle cx="230" cy="120" r="7"/><text x="230" y="142">Kyoto·Nara</text></g>
-    <g class="stop" data-e="2"><circle cx="150" cy="100" r="7"/><text x="150" y="80">Onomichi·Hiroshima</text></g>
-    <g class="stop" data-e="3"><circle cx="470" cy="60" r="7"/><text x="470" y="82">Hakone</text></g>
-    <g class="stop" data-e="4"><circle cx="540" cy="35" r="7"/><text x="540" y="20">Tokyo</text></g>
-    <circle class="current-ring" id="currentRing" r="8" cx="30" cy="25"/>
+    <g class="stop" data-e="0" tabindex="0" role="link" aria-label="Aller à l'étape Osaka"><circle cx="120" cy="150" r="7"/><text x="120" y="172">Osaka</text></g>
+    <g class="stop" data-e="1" tabindex="0" role="link" aria-label="Aller à l'étape Kyoto et Nara"><circle cx="230" cy="120" r="7"/><text x="230" y="142">Kyoto·Nara</text></g>
+    <g class="stop" data-e="2" tabindex="0" role="link" aria-label="Aller à l'étape Onomichi et Hiroshima"><circle cx="150" cy="100" r="7"/><text x="150" y="80">Onomichi·Hiroshima</text></g>
+    <g class="stop" data-e="3" tabindex="0" role="link" aria-label="Aller à l'étape Hakone"><circle cx="470" cy="60" r="7"/><text x="470" y="82">Hakone</text></g>
+    <g class="stop" data-e="4" tabindex="0" role="link" aria-label="Aller à l'étape Tokyo"><circle cx="540" cy="35" r="7"/><text x="540" y="20">Tokyo</text></g>
   </svg>
 </div>
 
@@ -190,474 +258,513 @@ footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--ink-soft);f
   <div class="filters-inner">
     <div class="filter-row" id="typeRow"></div>
     <div class="filter-row" id="regionRow"></div>
-    <button class="reset" id="resetBtn">Réinitialiser les filtres</button>
+    <button class="reset" id="resetBtn" type="button">Réinitialiser les filtres</button>
   </div>
 </div>
 
-<main id="main"></main>
+<main id="main"><noscript>Ce carnet de route a besoin de JavaScript pour s'afficher.</noscript></main>
 
-<footer>
-  Carnet de route — ajustable directement dans le fichier <code>DATA</code> ci-dessous dans le code source.
-</footer>
+<footer>Carnet de route — mis à jour au fil du voyage.</footer>
 
 <script>
-/* ================= DONNÉES DU VOYAGE — MODIFIEZ ICI ================= */
-const TYPES = {
-  culture:{label:'Culture & visites',color:'#3C4A54'},
-  nature:{label:'Nature & plein air',color:'#7C8A6E'},
-  gastronomie:{label:'Gastronomie',color:'#B0654A'},
-  shopping:{label:'Shopping',color:'#C9A876'},
-  parc:{label:'Parc à thème',color:'#8E5B8F'},
-  transport:{label:'Transport',color:'#8C8577'},
-  detente:{label:'Détente & onsen',color:'#5E8A87'}
-};
+(async function(){
+'use strict';
 
-const DATA = [
-{etape:"Étape 1 — Osaka & sensations", icon:"🏙️", meta:"16 → 20 oct · Apartment Hotel 11 Namba", weather:"~23°C / 15°C, encore doux", days:[
-  {date:"16 oct", iso:"2026-10-16", dow:"ven", title:"Arrivée & Dotonbori", items:[
-    {time:"11h50", type:"transport", region:"Osaka", text:"Arrivée à KIX, transfert vers Osaka", info:"Aéroport international du Kansai, sur une île artificielle dans la baie d'Osaka ; environ 1h de train jusqu'au centre-ville."},
-    {time:"Soir", type:"gastronomie", region:"Osaka", text:"Dotonbori — néons et street-food", info:"Le quartier le plus animé d'Osaka la nuit : enseignes lumineuses géantes (dont le panneau Glico) et takoyaki à chaque coin de rue."}
-  ]},
-  {date:"17 oct", iso:"2026-10-17", dow:"sam", title:"Himeji & Kobe", items:[
-    {time:"Matin", type:"culture", region:"Himeji", text:"Château de Himeji", info:"Le plus grand château féodal du Japon, surnommé le Château du Héron Blanc, classé UNESCO et intact depuis le 17e siècle."},
-    {time:"Après-midi", type:"nature", region:"Kobe", text:"Nunobiki Ropeway — vue sur la baie, jardin d'herbes", info:"Télécabine de 10 min au-dessus de Kobe, avec un jardin d'herbes aromatiques et vue sur le port et la baie d'Osaka."},
-    {time:"", type:"gastronomie", region:"Kobe", text:"Nankinmachi (Chinatown) — stop snack", info:"Le quartier chinois de Kobe : une rue piétonne dense en petites échoppes de street-food chinoise et japonaise fusion."},
-    {time:"Soir", type:"transport", region:"Osaka", text:"Retour à Osaka", info:"Retour en train vers Osaka pour la nuit."}
-  ]},
-  {date:"18 oct", iso:"2026-10-18", dow:"dim", title:"Kaiyukan & Shinsaibashi", items:[
-    {time:"11h-12h15", type:"nature", region:"Osaka", text:"Aquarium Kaiyukan", booked:true, info:"L'un des plus grands aquariums du monde, organisé autour d'un immense bassin central abritant des requins-baleines."},
-    {time:"12h15-13h30", type:"gastronomie", region:"Osaka", text:"Déjeuner sur le port de Tempozan", info:"Zone portuaire avec restaurants et vue sur la grande roue, juste à côté de l'aquarium."},
-    {time:"14h-16h30", type:"shopping", region:"Osaka", text:"Shinsaibashi-Suji, promenade à Dotonbori", info:"Galerie marchande couverte de 600m, l'une des rues commerçantes historiques d'Osaka, qui débouche sur Dotonbori."},
-    {time:"17h-18h30", type:"culture", region:"Osaka", text:"Harukas 300 — coucher de soleil sur Osaka", info:"Observatoire au sommet de la plus haute tour du Japon (300m), vue à 360° sur toute la ville."},
-    {time:"19h+", type:"gastronomie", region:"Osaka", text:"Dîner à Tennoji ou Namba", info:"Deux quartiers animés d'Osaka, bien fournis en restaurants, à choisir selon la fatigue du jour."}
-  ]},
-  {date:"19 oct", iso:"2026-10-19", dow:"lun", title:"Universal Studios Japan", items:[
-    {time:"Journée", type:"parc", region:"Osaka", text:"USJ + Super Nintendo World (réservation indispensable)", booked:true, info:"Parc Universal avec la zone immersive Super Nintendo World (Mario Kart, Donkey Kong) ; l'Express Pass évite de longues files."}
-  ]}
-]},
-{etape:"Étape 2 — Kyoto & Nara", icon:"⛩️", meta:"20 → 25 oct · Agora Kyoto Shijo", weather:"~21°C / 13°C, débuts de couleurs d'automne", transit:"→ JR Special Rapid, ~30-45 min", days:[
-  {date:"20 oct", iso:"2026-10-20", dow:"mar", title:"Transfert & Fushimi Inari", items:[
-    {time:"", type:"transport", region:"Kyoto", text:"Transfert vers Kyoto", info:"Environ 30 min de train JR régional depuis Osaka."},
-    {time:"Fin d'aprem", type:"culture", region:"Kyoto", text:"Fushimi Inari Taisha (avant 15h) — achat du goshuincho", info:"Sanctuaire aux milliers de torii orange formant des tunnels ; le goshuincho est un carnet pour collectionner les sceaux calligraphiés des temples."}
-  ]},
-  {date:"21 oct", iso:"2026-10-21", dow:"mer", title:"Arashiyama", items:[
-    {time:"7h-8h", type:"nature", region:"Kyoto", text:"Forêt de bambous, tôt pour éviter la foule", info:"Depuis l'hôtel : 5 min à pied jusqu'à Shijo-Omiya, puis tram Keifuku (Randen Line, ~22 min) jusqu'à Arashiyama. Sentier emblématique entre hautes tiges de bambous, pris d'assaut dès 9h30."},
-    {time:"Midi", type:"nature", region:"Kyoto", text:"Pont Togetsukyo & Iwatayama Monkey Park", info:"Traversée du pont Togetsukyo puis montée d'environ 20 min à travers bois jusqu'au parc : macaques japonais en liberté et panorama sur Kyoto. Déjeuner (soba/ramen) en redescendant."},
-    {time:"14h-15h40", type:"nature", region:"Kyoto", text:"Descente en barque sur la Hozugawa (réserver)", booked:false, info:"Depuis Saga-Arashiyama, guichet du Sagano Scenic Railway pour tenter un billet de dernière minute, sinon JR Sagano Line (7 min) jusqu'à Umahori. Barque traditionnelle de 1h30-2h dans les gorges, avec un passage d'une barque-épicerie flottante ; dépose au pied du pont Togetsukyo."},
-    {time:"15h40-17h", type:"gastronomie", region:"Kyoto", text:"Glace matcha & retour via le tram Randen", info:"Derniers achats de souvenirs dans la rue principale d'Arashiyama avant de reprendre le Randen vers l'hôtel."}
-  ]},
-  {date:"22 oct", iso:"2026-10-22", dow:"jeu", title:"Nara", items:[
-    {time:"Journée", type:"nature", region:"Nara", text:"Cerfs en liberté, Grand Bouddha du Todai-ji (goshuin)", info:"Le parc de Nara abrite plus de 1000 daims habitués aux visiteurs ; le Todai-ji renferme la plus grande statue de Bouddha en bronze du pays."}
-  ]},
-  {date:"23 oct", iso:"2026-10-23", dow:"ven", title:"Tour des temples", items:[
-    {time:"8h30", type:"culture", region:"Kyoto", text:"Kiyomizu-dera (ouvre à 6h, idéal avant les cars)", info:"Temple en bois perché sur pilotis avec vue plongeante sur Kyoto, l'un des sites les plus visités de la ville."},
-    {time:"Midi", type:"culture", region:"Kyoto", text:"Ninenzaka / Sannenzaka jusqu'à Kodai-ji et Gion", info:"Ruelles pavées historiques bordées de maisons traditionnelles, menant au quartier des geishas de Gion."},
-    {time:"Après-midi", type:"gastronomie", region:"Kyoto", text:"Marché de Nishiki", info:"Marché couvert de 400m surnommé 'la cuisine de Kyoto', spécialités locales et street-food à grignoter en marchant."}
-  ]},
-  {date:"24 oct", iso:"2026-10-24", dow:"sam", title:"Matinée libre & Pavillon d'Or", items:[
-    {time:"9h", type:"culture", region:"Kyoto", text:"Kinkaku-ji à l'ouverture, avant de quitter la ville", info:"Le Pavillon d'Or, recouvert de feuilles d'or, se reflète dans l'étang ; la lumière du matin y est la plus belle."}
-  ]}
-]},
-{etape:"Étape 3 — Shimanami Kaido & Hiroshima", icon:"🚲", meta:"25 → 28 oct · Onomichi Club puis Hotel Vista Hiroshima", weather:"~20°C / 13°C", transit:"→ Shinkansen + train local, ~1h30-2h30", days:[
-  {date:"25 oct", iso:"2026-10-25", dow:"dim", title:"Vélo sur la Shimanami Kaido", items:[
-    {time:"Journée", type:"nature", region:"Onomichi", text:"Traversée des îles à vélo (électrique conseillé)", info:"La Shimanami Kaido relie Honshu à Shikoku par des ponts suspendus au-dessus de la mer intérieure, sur piste cyclable dédiée."}
-  ]},
-  {date:"26 oct", iso:"2026-10-26", dow:"lun", title:"Hiroshima", items:[
-    {time:"Matin", type:"nature", region:"Onomichi", text:"Fin de la balade vélo", info:"Dernière portion de la traversée avant de rendre les vélos."},
-    {time:"Après-midi", type:"culture", region:"Hiroshima", text:"Parc de la Paix", info:"Mémorial dédié aux victimes de la bombe atomique de 1945, avec le dôme de Genbaku préservé en l'état."}
-  ]},
-  {date:"27 oct", iso:"2026-10-27", dow:"mar", title:"Miyajima", items:[
-    {time:"Journée", type:"culture", region:"Miyajima", text:"Sanctuaire Itsukushima, mont Misen en téléphérique", info:"Le célèbre torii flottant sur la mer à marée haute ; le mont Misen offre une vue sur la baie depuis son sommet."}
-  ]}
-]},
-{etape:"Étape 4 — Hakone & le Mont Fuji", icon:"🗻", meta:"28 → 30 oct · 光沙の森, Kowakudani (onsen)", weather:"~17°C / 8°C, nettement plus frais en montagne", transit:"→ Shinkansen via Odawara (Hakone Free Pass sur place), ~4h-4h45", days:[
-  {date:"28 oct", iso:"2026-10-28", dow:"mer", title:"Transfert vers Hakone", items:[
-    {time:"", type:"transport", region:"Hakone", text:"Shinkansen via Odawara vers Gora / Hakone-Yumoto", info:"Train à grande vitesse jusqu'à Odawara, puis train local Odakyu vers la zone thermale de Hakone."}
-  ]},
-  {date:"29 oct", iso:"2026-10-29", dow:"jeu", title:"Boucle du lac Ashi", items:[
-    {time:"Journée", type:"nature", region:"Hakone", text:"Bateau sur le lac Ashi (vue Fuji), téléphérique d'Owakudani", info:"Croisière en bateau pirate sur le lac Ashi, puis téléphérique au-dessus d'une vallée volcanique fumante, vue sur le Mont Fuji par temps clair."},
-    {time:"", type:"detente", region:"Hakone", text:"Onsen au retour", info:"Bain thermal japonais traditionnel, souvent inclus dans les ryokans de la région."}
-  ]}
-]},
-{etape:"Étape 5 — Tokyo, futur & Ghibli", icon:"🗼", meta:"30 oct → 3 nov · Mr Kintaro Higashikomagata (Asakusa/Sumida)", weather:"~19°C / 11°C", transit:"→ Romancecar jusqu'à Shinjuku + JR/métro vers Asakusa, ~2h-2h30 au total", days:[
-  {date:"30 oct", iso:"2026-10-30", dow:"ven", title:"Harajuku", items:[
-    {time:"", type:"transport", region:"Tokyo", text:"Arrivée à Tokyo", info:"Trajet en Shinkansen ou train local depuis Odawara jusqu'à Tokyo."},
-    {time:"Après-midi", type:"shopping", region:"Tokyo", text:"Takeshita Street — shopping ado", info:"Mode kawaii, boutiques décalées et la fameuse barbe à papa géante de chez Totti Candy Factory."},
-    {time:"Fin de journée", type:"gastronomie", region:"Tokyo", text:"Omotesando / Cat Street pour le dîner", info:"En chemin : Design Festa Gallery (galerie d'art libre) ou un passage au Purikura Shop NOA, et un café 3D chez Reissue avant de dîner du côté d'Omotesando."}
-  ]},
-  {date:"31 oct", iso:"2026-10-31", dow:"sam", title:"teamLab, Shibuya & Odaiba", items:[
-    {time:"11h-13h", type:"culture", region:"Tokyo", text:"teamLab Planets, pieds nus dans l'eau", booked:true, info:"Musée d'art numérique immersif où l'on marche pieds nus dans des installations lumineuses, dont un bassin d'eau peu profonde."},
-    {time:"Après-midi", type:"culture", region:"Tokyo", text:"Shibuya Crossing, Hachiko & Shibuya Sky", info:"Photo avec la statue d'Hachiko, puis Shibuya PARCO (Nintendo Tokyo, Pokémon Center) et l'observatoire Shibuya Sky en fin d'après-midi."},
-    {time:"Soir", type:"culture", region:"Tokyo", text:"Odaiba — Yurikamome, Gundam géant, baie illuminée", info:"Ligne automatique Yurikamome au-dessus du Rainbow Bridge, statue Unicorn Gundam devant DiverCity, promenade sur la baie illuminée ; option arcades géantes chez Joypolis."}
-  ]},
-  {date:"1 nov", iso:"2026-11-01", dow:"dim", title:"Ghibli, Kichijoji & Shimokitazawa", items:[
-    {time:"Matin", type:"culture", region:"Tokyo", text:"Musée Ghibli à Mitaka (billets pris le 10 sept)", booked:true, info:"Musée dédié à l'univers du Studio Ghibli, conçu comme un lieu à explorer plutôt qu'à visiter linéairement ; billets à date fixe, photos interdites à l'intérieur."},
-    {time:"Midi", type:"gastronomie", region:"Tokyo", text:"Parc Inokashira & déjeuner à Kichijoji", info:"Traversée à pied du parc, déjeuner dans les ruelles rétro d'Harmonica Yokocho et détour par le village miniature Kichijoji Petit Mura."},
-    {time:"Après-midi", type:"shopping", region:"Tokyo", text:"Shimokitazawa — friperies & Shiro-hige's Cream Puff", info:"15 min en train depuis Kichijoji. Quartier vintage/hipster, complexe Mikan Shimokita, et choux à la crème en forme de Totoro chez Shiro-hige's Cream Puff Factory."}
-  ]},
-  {date:"2 nov", iso:"2026-11-02", dow:"lun", title:"Tokyo DisneySea", items:[
-    {time:"Rope drop", type:"parc", region:"Tokyo", text:"Arrivée 45-60 min avant l'ouverture, DPA dès l'entrée", booked:false, info:"Parc Disney atypique organisé en ports thématiques (dont Fantasy Springs) ; le Disney Premier Access réserve un accès rapide payant par attraction."}
-  ]},
-  {date:"3 nov", iso:"2026-11-03", dow:"mar", title:"Départ", items:[
-    {time:"Matin", type:"shopping", region:"Tokyo", text:"Derniers achats", info:"Dernière matinée libre à Tokyo pour les souvenirs de dernière minute."},
-    {time:"14h", type:"transport", region:"Tokyo", text:"Départ pour Narita, vol de 17h20", info:"Environ 1h30-2h de trajet depuis le centre de Tokyo jusqu'à l'aéroport de Narita."}
-  ]}
-]}
-];
-/* ================= FIN DES DONNÉES ================= */
-
-const NOWISO = new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
-let NOTES = {};
-function fillNoteField(){
-  const ta=document.getElementById('noteText'), d=document.getElementById('photoDate');
-  if(ta && d) ta.value = NOTES[d.value] || '';
-}
-
-/* ===== Config du module photos — à adapter à votre repo ===== */
+/* ================= RÉGLAGES ================= */
 const GH_OWNER = "Noexicaise";
 const GH_REPO = "Japon";
 const GH_BRANCH = "main";
-
-const regionOf = new Set();
-DATA.forEach(e=>e.days.forEach(d=>d.items.forEach(i=>regionOf.add(i.region))));
-
-const typeRow = document.getElementById('typeRow');
-Object.entries(TYPES).forEach(([key,t])=>{
-  const b=document.createElement('button');
-  b.className='chip'; b.textContent=t.label; b.dataset.cat='type'; b.dataset.key=key;
-  b.onclick=()=>{b.classList.toggle('active'); render();};
-  typeRow.appendChild(b);
-});
-const regionRow = document.getElementById('regionRow');
-[...regionOf].forEach(r=>{
-  const b=document.createElement('button');
-  b.className='chip'; b.textContent=r; b.dataset.cat='region'; b.dataset.key=r;
-  b.onclick=()=>{b.classList.toggle('active'); render();};
-  regionRow.appendChild(b);
-});
-document.getElementById('resetBtn').onclick=()=>{
-  document.querySelectorAll('.chip.active').forEach(c=>c.classList.remove('active'));
-  render();
+const TYPES = {
+  culture:{label:'Culture & visites',color:'#3C4A54'},
+  nature:{label:'Nature & plein air',color:'#7C8A6E'},
+  gastronomie:{label:'Gastronomie',color:'#A65A40'},
+  shopping:{label:'Shopping',color:'#C9A876'},
+  parc:{label:'Parc à thème',color:'#8E5B8F'},
+  transport:{label:'Transport',color:'#8C8577'},
+  detente:{label:'Détente & onsen',color:'#66928E'}
 };
+/* ============================================ */
 
-const main = document.getElementById('main');
+const $ = id => document.getElementById(id);
+const SITE_URL = location.origin + location.pathname;
+const NOWISO = new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
+const REDUCE = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const smooth = () => REDUCE ? 'auto' : 'smooth';
 
-function build(){
-  DATA.forEach((etape,ei)=>{
-    const sec=document.createElement('section'); sec.className='etape'; sec.dataset.etape=ei;
-    const weatherHtml = etape.weather ? `<span class="meta weather">🌤️ ${etape.weather}</span>` : '';
-    const lastIso = etape.days[etape.days.length-1].iso;
-    const isPast = lastIso < NOWISO;
-    sec.innerHTML=`<div class="etape-head${isPast?' collapsed':''}"><span class="icon">${etape.icon||''}</span><h2>${etape.etape}</h2><span class="meta">${etape.meta}</span>${weatherHtml}<span class="chevron">▾</span></div>`;
-    const tl=document.createElement('div'); tl.className='timeline'+(isPast?' collapsed':'');
-    const todayISO = new Date().toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
-    etape.days.forEach(day=>{
-      const d=document.createElement('div'); d.className='day';
-      d.dataset.iso = day.iso;
-      const isToday = day.iso === todayISO;
-      if(isToday) d.classList.add('today');
-      d.innerHTML=`<div class="day-head"><span class="day-date">${day.date}</span><span class="day-dow">${day.dow}</span><span class="day-title">— ${day.title}</span>${isToday?'<span class="day-title">· aujourd\'hui</span>':''}</div>`;
-      const items=document.createElement('div'); items.className='items';
-      day.items.forEach(it=>{
-        const row=document.createElement('div'); row.className='item';
-        row.dataset.type=it.type; row.dataset.region=it.region;
-        const color=TYPES[it.type]?TYPES[it.type].color:'#999';
-        const mapsQuery = encodeURIComponent(it.maps || (it.text + ' ' + it.region + ' Japon'));
-        const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
-        row.innerHTML=`<div class="time">${it.time||''}</div><div><div class="text">${it.text}</div><div class="tags"><span class="tag" style="background:${color}">${TYPES[it.type]?TYPES[it.type].label:it.type}</span><span class="tag" style="background:#8C8577">${it.region}</span><a class="map-link" href="${mapsHref}" target="_blank" rel="noopener">Voir sur la carte ↗</a>${it.info?'<button class="expand-btn">+ d\u2019infos ⌄</button>':''}${it.booked===true?'<span class="badge booked">✅ Réservé</span>':''}${it.booked===false?'<span class="badge todo">⏳ À réserver</span>':''}</div>${it.info?`<div class="info-more">${it.info}</div>`:''}</div>`;
-        items.appendChild(row);
-      });
-      d.appendChild(items);
-      if(day.photos && day.photos.length){
-        const ph=document.createElement('div'); ph.className='day-photos';
-        day.photos.forEach(src=>{
-          ph.innerHTML+=`<a href="${src}" target="_blank" rel="noopener"><img src="${src}" loading="lazy" alt=""></a>`;
-        });
-        d.appendChild(ph);
-      }
-      tl.appendChild(d);
-    });
-    sec.appendChild(tl);
-    main.appendChild(sec);
-    if(etape.transit){
-      const tr=document.createElement('div'); tr.className='transit';
-      tr.textContent=etape.transit;
-      main.appendChild(tr);
-    }
-  });
-}
-build();
-
-// Accordéon : plier/déplier une étape au clic sur son en-tête ; replie par défaut les étapes déjà terminées
-document.querySelectorAll('.etape').forEach(sec=>{
-  const head=sec.querySelector('.etape-head');
-  const tl=sec.querySelector('.timeline');
-  head.addEventListener('click',()=>{
-    tl.classList.toggle('collapsed');
-    head.classList.toggle('collapsed');
-  });
-});
-
-
-// Panneau admin, visible seulement sur index.html#admin
-if(location.hash==='#admin'){
-  document.getElementById('adminPanel').style.display='flex';
-  const savedToken=(()=>{try{return localStorage.getItem('ghPAT')||'';}catch(e){return '';}})();
-  document.getElementById('ghToken').value=savedToken;
-  document.getElementById('photoDate').value=NOWISO;
-}
-
-// Galerie photo par jour : lit photos.json à la racine du site (silencieux si absent)
-fetch('./photos.json?t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({})).then(photoMap=>{
-  Object.entries(photoMap).forEach(([iso, paths])=>{
-    const dayEl=document.querySelector(`.day[data-iso="${iso}"]`);
-    if(!dayEl || !paths.length) return;
-    const gal=document.createElement('div'); gal.className='photo-gallery';
-    paths.forEach(p=>{
-      const a=document.createElement('a'); a.href=p; a.target='_blank'; a.rel='noopener';
-      const img=document.createElement('img'); img.src=p; img.loading='lazy'; img.alt='Photo du voyage';
-      a.appendChild(img); gal.appendChild(a);
-    });
-    dayEl.appendChild(gal);
-  });
-});
-
-// Comptes rendus : lit notes.json à la racine du site (silencieux si absent)
-fetch('./notes.json?t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({})).then(map=>{
-  NOTES = map || {};
-  fillNoteField();
-  Object.entries(NOTES).forEach(([iso, text])=>{
-    if(!text) return;
-    const dayEl=document.querySelector(`.day[data-iso="${iso}"]`);
-    if(dayEl){
-      const n=document.createElement('div'); n.className='day-note';
-      const label=document.createElement('span'); label.className='note-label'; label.textContent='Le carnet du jour';
-      const p=document.createElement('p'); p.textContent=text;
-      n.append(label,p);
-      dayEl.querySelector('.items').after(n);
-    }
-    const tc=document.querySelector('#todayCard .today-card');
-    if(tc && iso===NOWISO){
-      const tp=document.createElement('p'); tp.className='tc-note'; tp.textContent=text;
-      tc.appendChild(tp);
-    }
-  });
-});
-
-document.querySelectorAll('.route-svg .stop').forEach(g=>{
-  g.addEventListener('click',()=>{
-    const sec=document.querySelector(`.etape[data-etape="${g.dataset.e}"]`);
-    if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
-  });
-});
-
-const START_ISO='2026-10-16';
-const END_ISO='2026-11-03';
-const NOW=new Date();
-const TOTAL=19;
-const statusEl=document.getElementById('tripStatus');
-if(NOWISO<START_ISO){
-  const j=Math.round((Date.parse(START_ISO)-Date.parse(NOWISO))/86400000);
-  statusEl.innerHTML=`<span class="countdown">J-${j} avant le départ</span>`;
-}else if(NOWISO<=END_ISO){
-  const day=Math.round((Date.parse(NOWISO)-Date.parse(START_ISO))/86400000)+1;
-  const pct=Math.round(day/TOTAL*100);
-  statusEl.innerHTML=`<div class="progress-wrap"><div class="progress-label">Jour ${day} / ${TOTAL}</div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div>`;
-}else{
-  statusEl.innerHTML=`<span class="countdown">Voyage terminé ✓</span>`;
-}
-
-// Position actuelle sur la carte schématique
-const todayISO2 = NOW.toLocaleDateString('sv-SE', {timeZone:'Asia/Tokyo'});
-let currentEtape = 'bxl';
-if(NOWISO>=START_ISO && NOWISO<=END_ISO){
-  DATA.forEach((etape,ei)=>{
-    etape.days.forEach(day=>{
-      if(day.iso===todayISO2) currentEtape = String(ei);
-    });
-  });
-}
-document.querySelectorAll('.route-svg .stop').forEach(g=>{
-  g.classList.toggle('current', g.dataset.e===currentEtape);
-});
-
-// Encart "aujourd'hui"
-const todayCard=document.getElementById('todayCard');
-let todayDay=null;
-DATA.forEach(etape=>{ etape.days.forEach(day=>{ if(day.iso===todayISO2) todayDay=day; }); });
-if(todayDay){
-  const list=todayDay.items.map(it=>`<li>${it.time?`<strong>${it.time}</strong> — `:''}${it.text}</li>`).join('');
-  todayCard.innerHTML=`<div class="today-card"><div class="tc-label">Aujourd'hui</div><h3>${todayDay.date} — ${todayDay.title}</h3><ul>${list}</ul></div>`;
-}
-
-document.getElementById('shareBtn').addEventListener('click', async ()=>{
-  const btn=document.getElementById('shareBtn');
-  try{
-    await navigator.clipboard.writeText(location.href);
-    btn.textContent='Lien copié ✓';
-  }catch(e){
-    btn.textContent=location.href;
+function el(tag, props = {}, ...kids){
+  const e = document.createElement(tag);
+  for(const [k,v] of Object.entries(props)){
+    if(v == null || v === false) continue;
+    if(k === 'class') e.className = v;
+    else if(k === 'text') e.textContent = v;
+    else if(k === 'style') e.style.cssText = v;
+    else if(k.startsWith('on')) e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? '' : v);
   }
-  setTimeout(()=>btn.textContent='Partager le lien ↗',2000);
-});
+  kids.flat().forEach(c => { if(c != null) e.append(c); });
+  return e;
+}
+function lum(hex){
+  const f = c => { c /= 255; return c <= .03928 ? c/12.92 : Math.pow((c+.055)/1.055, 2.4); };
+  const n = parseInt(hex.slice(1), 16);
+  return .2126*f(n>>16) + .7152*f((n>>8)&255) + .0722*f(n&255);
+}
+function textOn(bg){
+  const ratio = fg => { const [a,b] = [lum(bg), lum(fg)].sort((x,y) => y-x); return (a+.05)/(b+.05); };
+  return ratio('#FBF9F4') >= ratio('#1F1D19') ? '#FBF9F4' : '#1F1D19';
+}
+async function fetchJson(name, fallback){
+  try{
+    const r = await fetch('./' + name + '?t=' + Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error(r.status);
+    return await r.json();
+  }catch(e){ return fallback; }
+}
+function normPhoto(p){
+  return typeof p === 'string' ? {src:p, thumb:p, caption:''} : {src:p.src, thumb:p.thumb || p.src, caption:p.caption || ''};
+}
 
-const themeBtn=document.getElementById('themeBtn');
+/* ---------- Thème, partage, horloges (indépendants des données) ---------- */
+const themeBtn = $('themeBtn');
 function applyTheme(mode){
-  if(mode==='auto'){ document.documentElement.removeAttribute('data-theme'); }
-  else{ document.documentElement.setAttribute('data-theme', mode); }
-  themeBtn.textContent = mode==='auto' ? '🌓 Thème : auto' : (mode==='dark' ? '🌙 Thème : sombre' : '☀️ Thème : clair');
+  if(mode === 'auto') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', mode);
+  themeBtn.textContent = mode === 'auto' ? '🌓 Thème : auto' : (mode === 'dark' ? '🌙 Thème : sombre' : '☀️ Thème : clair');
   try{ localStorage.setItem('themeMode', mode); }catch(e){}
 }
-let savedTheme='auto';
-try{ savedTheme = localStorage.getItem('themeMode') || 'auto'; }catch(e){}
-applyTheme(savedTheme);
-themeBtn.addEventListener('click', ()=>{
-  const order=['auto','light','dark'];
-  const current = (()=>{ try{return localStorage.getItem('themeMode')||'auto';}catch(e){return 'auto';} })();
-  const next = order[(order.indexOf(current)+1)%order.length];
-  applyTheme(next);
+let themeMode = 'auto';
+try{ themeMode = localStorage.getItem('themeMode') || 'auto'; }catch(e){}
+applyTheme(themeMode);
+themeBtn.addEventListener('click', () => {
+  const order = ['auto','light','dark'];
+  themeMode = order[(order.indexOf(themeMode)+1) % order.length];
+  applyTheme(themeMode);
 });
+$('shareBtn').addEventListener('click', async () => {
+  const btn = $('shareBtn');
+  try{ await navigator.clipboard.writeText(SITE_URL); btn.textContent = 'Lien copié ✓'; }
+  catch(e){ btn.textContent = SITE_URL; }
+  setTimeout(() => btn.textContent = 'Partager le lien ↗', 2000);
+});
+function tick(){
+  const f = tz => new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit', timeZone:tz});
+  $('clocks').textContent = 'Japon ' + f('Asia/Tokyo') + ' · Belgique ' + f('Europe/Brussels');
+}
+tick(); setInterval(tick, 30000);
 
-if(location.hash==='#admin'){
-  function resizeToBase64(file, maxW=1600, quality=0.8){
-    return new Promise((resolve,reject)=>{
-      const img=new Image();
-      const reader=new FileReader();
-      reader.onload=()=>{ img.onload=()=>{
-        const scale=Math.min(1, maxW/img.width);
-        const canvas=document.createElement('canvas');
-        canvas.width=img.width*scale; canvas.height=img.height*scale;
-        canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
-        resolve(canvas.toDataURL('image/jpeg', quality).split(',')[1]);
-      }; img.onerror=reject; img.src=reader.result; };
-      reader.onerror=reject;
-      reader.readAsDataURL(file);
-    });
-  }
+/* ---------- Chargement du planning ---------- */
+const DATA = await fetchJson('itinerary.json', null);
+if(!Array.isArray(DATA) || !DATA.length){
+  $('main').append(el('p', {class:'meta', text:"Le planning est introuvable (itinerary.json). Vérifiez qu'il est bien à la racine du dépôt, à côté de index.html."}));
+  return;
+}
+const allDays = DATA.flatMap((e,ei) => e.days.map(d => Object.assign({ei}, d)));
+const START_ISO = allDays[0].iso, END_ISO = allDays[allDays.length-1].iso, TOTAL = allDays.length;
+const todayDay = allDays.find(d => d.iso === NOWISO);
 
-  async function ghRequest(path, options={}){
-    const token=document.getElementById('ghToken').value.trim();
-    const res=await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`,{
-      cache:'no-store',
-      ...options,
-      headers:{ 'Authorization':`Bearer ${token}`, 'Accept':'application/vnd.github+json', ...(options.headers||{}) }
-    });
-    return res;
-  }
+/* ---------- Statut du voyage et position sur la carte ---------- */
+const statusEl = $('tripStatus');
+if(NOWISO < START_ISO){
+  const j = Math.round((Date.parse(START_ISO) - Date.parse(NOWISO)) / 864e5);
+  statusEl.append(el('span', {class:'countdown', text:'J-' + j + ' avant le départ'}));
+}else if(NOWISO <= END_ISO){
+  const n = Math.round((Date.parse(NOWISO) - Date.parse(START_ISO)) / 864e5) + 1;
+  statusEl.append(el('div', {class:'progress-wrap'},
+    el('div', {class:'progress-label', text:'Jour ' + n + ' / ' + TOTAL}),
+    el('div', {class:'progress-bar'}, el('div', {class:'progress-fill', style:'width:' + Math.round(n/TOTAL*100) + '%'}))));
+}else{
+  statusEl.append(el('span', {class:'countdown', text:'Voyage terminé ✓'}));
+}
+const currentEtape = todayDay ? String(todayDay.ei) : 'bxl';
+document.querySelectorAll('.route-svg .stop').forEach(g => g.classList.toggle('current', g.dataset.e === currentEtape));
 
-  document.getElementById('photoDate').addEventListener('change', fillNoteField);
-
-  document.getElementById('publishNote').addEventListener('click', async ()=>{
-    const st=document.getElementById('noteStatus');
-    const token=document.getElementById('ghToken').value.trim();
-    const date=document.getElementById('photoDate').value;
-    const text=document.getElementById('noteText').value.trim();
-    if(!token || !date){ st.textContent='Token et date requis.'; return; }
-    try{ localStorage.setItem('ghPAT', token); }catch(e){}
-    st.textContent='Envoi en cours...';
-    try{
-      const getRes=await ghRequest(`notes.json?ref=${GH_BRANCH}`);
-      let sha, map={};
-      if(getRes.ok){
-        const data=await getRes.json();
-        sha=data.sha;
-        map=JSON.parse(decodeURIComponent(escape(atob(data.content))));
-      }else if(getRes.status!==404){
-        throw new Error('lecture de notes.json impossible ('+getRes.status+')');
-      }
-      if(text) map[date]=text; else delete map[date];
-      const put=await ghRequest('notes.json',{ method:'PUT', body:JSON.stringify({
-        message:`Compte rendu du ${date}`,
-        content:btoa(unescape(encodeURIComponent(JSON.stringify(map,null,2)))),
-        branch:GH_BRANCH, ...(sha?{sha}:{})
-      })});
-      if(!put.ok) throw new Error('échec de la publication ('+put.status+')');
-      NOTES=map;
-      st.textContent = text ? '✓ Compte rendu publié. En ligne dans ~1 min.' : '✓ Compte rendu supprimé. Disparaît du site dans ~1 min.';
-    }catch(err){
-      st.textContent='Erreur : '+err.message;
-    }
-  });
-
-  document.getElementById('publishPhotos').addEventListener('click', async ()=>{
-    const statusEl=document.getElementById('adminStatus');
-    const token=document.getElementById('ghToken').value.trim();
-    const date=document.getElementById('photoDate').value; // yyyy-mm-dd
-    const files=[...document.getElementById('photoFiles').files].slice(0,10);
-    if(!token || !date || files.length===0){ statusEl.textContent='Token, date et au moins une photo sont requis.'; return; }
-    try{ localStorage.setItem('ghPAT', token); }catch(e){}
-
-    statusEl.textContent='Envoi en cours...';
-    try{
-      const newPaths=[]; let failed=0;
-      for(let i=0;i<files.length;i++){
-        statusEl.textContent=`Compression et envoi ${i+1}/${files.length}...`;
-        try{
-          const b64=await resizeToBase64(files[i]);
-          const path=`photos/${date}-${Date.now()}-${i}.jpg`;
-          const put=await ghRequest(path,{ method:'PUT', body:JSON.stringify({
-            message:`Ajout photo ${date}`, content:b64, branch:GH_BRANCH
-          })});
-          if(!put.ok) throw new Error('Échec upload photo ('+put.status+')');
-          newPaths.push(path);
-        }catch(e){ failed++; }
-        await new Promise(r=>setTimeout(r,1000));
-      }
-      if(newPaths.length===0) throw new Error("aucune photo n'a pu être envoyée (vérifiez le token et la connexion).");
-
-      statusEl.textContent='Mise à jour de photos.json...';
-      const getRes=await ghRequest(`photos.json?ref=${GH_BRANCH}`);
-      let sha=undefined, photoMap={};
-      if(getRes.ok){
-        const data=await getRes.json();
-        sha=data.sha;
-        photoMap=JSON.parse(decodeURIComponent(escape(atob(data.content))));
-      }
-      photoMap[date]=[...(photoMap[date]||[]), ...newPaths];
-      const putJson=await ghRequest('photos.json',{ method:'PUT', body:JSON.stringify({
-        message:`Photos du ${date}`, content:btoa(unescape(encodeURIComponent(JSON.stringify(photoMap,null,2)))),
-        branch:GH_BRANCH, ...(sha?{sha}:{})
-      })});
-      if(!putJson.ok) throw new Error('Échec mise à jour photos.json ('+putJson.status+')');
-
-      statusEl.textContent=`✓ ${newPaths.length}/${files.length} photo(s) publiée(s)`+(failed?` — ${failed} en échec, relancez avec celles-ci.`:'')+` En ligne dans ~1 min après republication GitHub Pages.`;
-    }catch(err){
-      statusEl.textContent='Erreur : '+err.message;
-    }
-  });
+/* ---------- Encart « Aujourd'hui » ---------- */
+if(todayDay){
+  $('todayCard').append(el('div', {class:'today-card'},
+    el('div', {class:'tc-label', text:"Aujourd'hui"}),
+    el('h3', {text: todayDay.date + ' — ' + todayDay.title}),
+    el('ul', {}, todayDay.items.map(it => el('li', {}, it.time ? el('strong', {text:it.time}) : null, (it.time ? ' — ' : '') + it.text)))));
 }
 
-main.addEventListener('click', (e)=>{
-  const btn=e.target.closest('.expand-btn');
-  if(!btn) return;
-  const item=btn.closest('.item');
-  item.classList.toggle('expanded');
-  btn.textContent = item.classList.contains('expanded') ? '− réduire ⌃' : '+ d\u2019infos ⌄';
+/* ---------- Construction du planning ---------- */
+function buildItem(it){
+  const t = TYPES[it.type] || {label:it.type, color:'#8C8577'};
+  const row = el('div', {class:'item', 'data-type':it.type, 'data-region':it.region});
+  if(it.time) row.append(el('div', {class:'time', text:it.time}));
+  row.append(el('div', {class:'text', text:it.text}));
+  const q = encodeURIComponent(it.maps || (it.text + ' ' + it.region + ' Japon'));
+  const tags = el('div', {class:'tags'},
+    el('span', {class:'tag', style:'background:' + t.color + ';color:' + textOn(t.color), text:t.label}),
+    el('span', {class:'tag', style:'background:#8C8577;color:' + textOn('#8C8577'), text:it.region}),
+    el('a', {class:'map-link', href:'https://www.google.com/maps/search/?api=1&query=' + q, target:'_blank', rel:'noopener', text:'Voir sur la carte ↗'}));
+  if(it.info){
+    const b = el('button', {class:'expand-btn', type:'button', 'aria-expanded':'false', text:'+ d’infos ⌄'});
+    b.addEventListener('click', () => {
+      const open = row.classList.toggle('expanded');
+      b.setAttribute('aria-expanded', String(open));
+      b.textContent = open ? '− réduire ⌃' : '+ d’infos ⌄';
+    });
+    tags.append(b);
+  }
+  if(it.booked === true) tags.append(el('span', {class:'badge booked', text:'✅ Réservé'}));
+  if(it.booked === false) tags.append(el('span', {class:'badge todo', text:'⏳ À réserver'}));
+  row.append(tags);
+  if(it.info) row.append(el('div', {class:'info-more', text:it.info}));
+  return row;
+}
+function setEtape(sec, open){
+  sec.querySelector('.etape-head').classList.toggle('collapsed', !open);
+  sec.querySelector('.timeline').classList.toggle('collapsed', !open);
+  sec.querySelector('.etape-btn').setAttribute('aria-expanded', String(open));
+}
+const main = $('main');
+DATA.forEach((etape, ei) => {
+  const isPast = etape.days[etape.days.length-1].iso < NOWISO;
+  const tl = el('div', {class:'timeline', id:'tl-' + ei});
+  etape.days.forEach(day => {
+    const isToday = day.iso === NOWISO;
+    const d = el('div', {class:'day' + (isToday ? ' today' : ''), id:'jour-' + day.iso, 'data-iso':day.iso},
+      el('div', {class:'day-head'},
+        el('span', {class:'day-date', text:day.date}), el('span', {class:'day-dow', text:day.dow}),
+        el('span', {class:'day-title', text:'— ' + day.title}),
+        isToday ? el('span', {class:'day-title', text:'· aujourd’hui'}) : null),
+      el('div', {class:'items'}, day.items.map(buildItem)));
+    tl.append(d);
+  });
+  const btn = el('button', {class:'etape-btn', type:'button', 'aria-expanded':'true', 'aria-controls':'tl-' + ei, text:etape.etape});
+  const head = el('div', {class:'etape-head'},
+    el('span', {class:'icon', 'aria-hidden':'true', text:etape.icon || ''}), el('h2', {}, btn),
+    el('span', {class:'meta', text:etape.meta || ''}),
+    etape.weather ? el('span', {class:'meta weather', text:'🌤️ ' + etape.weather}) : null,
+    el('span', {class:'chevron', 'aria-hidden':'true', text:'▾'}));
+  const sec = el('section', {class:'etape', 'data-etape':ei}, head, tl);
+  head.addEventListener('click', () => setEtape(sec, tl.classList.contains('collapsed')));
+  main.append(sec);
+  setEtape(sec, !isPast);
+  if(etape.transit) main.append(el('div', {class:'transit', text:etape.transit}));
 });
 
-const todayEl = document.querySelector('.day.today');
-if(todayEl) todayEl.scrollIntoView({behavior:'smooth', block:'center'});
+document.querySelectorAll('.route-svg .stop[data-e]').forEach(g => {
+  const go = () => {
+    const sec = document.querySelector('.etape[data-etape="' + g.dataset.e + '"]');
+    if(sec){ setEtape(sec, true); sec.scrollIntoView({behavior:smooth(), block:'start'}); }
+  };
+  g.addEventListener('click', go);
+  g.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
+});
 
-function render(){
-  const activeTypes=[...document.querySelectorAll('.chip[data-cat="type"].active')].map(c=>c.dataset.key);
-  const activeRegions=[...document.querySelectorAll('.chip[data-cat="region"].active')].map(c=>c.dataset.key);
-  document.querySelectorAll('.etape').forEach(sec=>{
-    let etapeVisible=false;
-    sec.querySelectorAll('.day').forEach(day=>{
-      let dayVisible=false;
-      day.querySelectorAll('.item').forEach(it=>{
-        const okType = activeTypes.length===0 || activeTypes.includes(it.dataset.type);
-        const okRegion = activeRegions.length===0 || activeRegions.includes(it.dataset.region);
-        const show = okType && okRegion;
+/* ---------- Filtres ---------- */
+function applyFilters(){
+  const types = [...document.querySelectorAll('.chip[data-cat="type"].active')].map(c => c.dataset.key);
+  const regs = [...document.querySelectorAll('.chip[data-cat="region"].active')].map(c => c.dataset.key);
+  main.classList.toggle('filtering', types.length > 0 || regs.length > 0);
+  document.querySelectorAll('.etape').forEach(sec => {
+    let secVisible = false;
+    sec.querySelectorAll('.day').forEach(day => {
+      let dayVisible = false;
+      day.querySelectorAll('.item').forEach(it => {
+        const show = (!types.length || types.includes(it.dataset.type)) && (!regs.length || regs.includes(it.dataset.region));
         it.classList.toggle('hide', !show);
-        if(show) dayVisible=true;
+        if(show) dayVisible = true;
       });
       day.classList.toggle('hide', !dayVisible);
-      if(dayVisible) etapeVisible=true;
+      if(dayVisible) secVisible = true;
     });
-    sec.classList.toggle('hide', !etapeVisible);
+    sec.classList.toggle('hide', !secVisible);
   });
 }
+function chip(cat, key, label){
+  const b = el('button', {class:'chip', type:'button', 'data-cat':cat, 'data-key':key, 'aria-pressed':'false', text:label});
+  b.addEventListener('click', () => { b.setAttribute('aria-pressed', String(b.classList.toggle('active'))); applyFilters(); });
+  return b;
+}
+Object.entries(TYPES).forEach(([k,t]) => $('typeRow').append(chip('type', k, t.label)));
+[...new Set(DATA.flatMap(e => e.days.flatMap(d => d.items.map(i => i.region))))].forEach(r => $('regionRow').append(chip('region', r, r)));
+$('resetBtn').addEventListener('click', () => {
+  document.querySelectorAll('.chip.active').forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); });
+  applyFilters();
+});
+
+/* ---------- Visionneuse de photos ---------- */
+let lbList = [], lbIdx = 0, lbFocus = null;
+const lbImg = el('img', {alt:''});
+const lbCap = el('p', {class:'lb-cap'});
+const lbPrev = el('button', {class:'lb-btn lb-prev', type:'button', 'aria-label':'Photo précédente', text:'‹'});
+const lbNext = el('button', {class:'lb-btn lb-next', type:'button', 'aria-label':'Photo suivante', text:'›'});
+const lbClose = el('button', {class:'lb-btn lb-close', type:'button', 'aria-label':'Fermer', text:'✕'});
+const lb = el('div', {class:'lb', role:'dialog', 'aria-modal':'true', 'aria-label':'Photo', hidden:true}, lbClose, lbPrev, lbImg, lbCap, lbNext);
+document.body.append(lb);
+function lbShow(){
+  const p = lbList[lbIdx];
+  lbImg.src = p.src; lbImg.alt = p.caption || 'Photo du voyage';
+  lbCap.textContent = (p.caption ? p.caption + '  ·  ' : '') + (lbIdx+1) + ' / ' + lbList.length;
+  lbPrev.hidden = lbNext.hidden = lbList.length < 2;
+}
+function lbStep(n){ lbIdx = (lbIdx + n + lbList.length) % lbList.length; lbShow(); }
+function lbOpen(list, i){
+  lbList = list; lbIdx = i; lbFocus = document.activeElement;
+  lbShow(); lb.hidden = false; document.body.style.overflow = 'hidden'; lbClose.focus();
+}
+function lbHide(){
+  lb.hidden = true; lbImg.removeAttribute('src'); document.body.style.overflow = '';
+  if(lbFocus && lbFocus.focus) lbFocus.focus();
+}
+lbPrev.addEventListener('click', () => lbStep(-1));
+lbNext.addEventListener('click', () => lbStep(1));
+lbClose.addEventListener('click', lbHide);
+lb.addEventListener('click', e => { if(e.target === lb) lbHide(); });
+document.addEventListener('keydown', e => {
+  if(lb.hidden) return;
+  if(e.key === 'Escape') lbHide();
+  if(e.key === 'ArrowLeft' && lbList.length > 1) lbStep(-1);
+  if(e.key === 'ArrowRight' && lbList.length > 1) lbStep(1);
+});
+let touchX = null;
+lb.addEventListener('touchstart', e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+lb.addEventListener('touchend', e => {
+  if(touchX == null || lbList.length < 2) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 50) lbStep(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+/* ---------- Photos et comptes rendus (photos.json, notes.json) ---------- */
+let SITE_PHOTOS = {}, NOTES = {};
+function renderExtras(){
+  allDays.forEach(day => {
+    const dayEl = $('jour-' + day.iso);
+    if(!dayEl) return;
+    dayEl.querySelectorAll('.day-note,.photo-gallery').forEach(n => n.remove());
+    const note = NOTES[day.iso];
+    if(note){
+      dayEl.querySelector('.items').after(el('div', {class:'day-note'},
+        el('span', {class:'note-label', text:'Le carnet du jour'}), el('p', {text:note})));
+      if(day.iso === NOWISO){
+        const tc = document.querySelector('#todayCard .today-card');
+        if(tc && !tc.querySelector('.tc-note')) tc.append(el('p', {class:'tc-note', text:note}));
+      }
+    }
+    const list = [...(day.photos || []), ...(SITE_PHOTOS[day.iso] || [])].map(normPhoto);
+    if(list.length){
+      dayEl.append(el('div', {class:'photo-gallery'}, list.map((p,i) =>
+        el('button', {class:'ph', type:'button', 'aria-label':p.caption || ('Photo ' + (i+1) + ' sur ' + list.length), onclick:() => lbOpen(list, i)},
+          el('img', {src:p.thumb, alt:p.caption || 'Photo du voyage', loading:'lazy', decoding:'async'})))));
+    }
+  });
+}
+;[SITE_PHOTOS, NOTES] = await Promise.all([fetchJson('photos.json', {}), fetchJson('notes.json', {})]);
+renderExtras();
+
+/* ---------- Lien direct vers un jour (#jour-AAAA-MM-JJ) ---------- */
+function goToHash(){
+  const m = location.hash.match(/^#jour-(\d{4}-\d{2}-\d{2})$/);
+  const d = m && $('jour-' + m[1]);
+  if(!d) return;
+  setEtape(d.closest('.etape'), true);
+  d.scrollIntoView({behavior:smooth(), block:'start'});
+  d.classList.add('flash'); setTimeout(() => d.classList.remove('flash'), 2500);
+}
+goToHash();
+window.addEventListener('hashchange', () => { goToHash(); if(location.hash === '#admin') initAdmin(); });
+
+/* ================= ADMIN (#admin) ================= */
+let adminReady = false;
+function initAdmin(){
+  if(adminReady) return;
+  adminReady = true;
+  $('adminPanel').hidden = false;
+  try{ $('ghToken').value = localStorage.getItem('ghPAT') || ''; }catch(e){}
+  $('photoDate').value = NOWISO;
+
+  const say = (id, msg) => { $(id).textContent = msg; };
+  const token = () => $('ghToken').value.trim();
+  const dateVal = () => $('photoDate').value;
+  const saveToken = () => { try{ localStorage.setItem('ghPAT', token()); }catch(e){} };
+
+  async function gh(path, opt = {}){
+    const res = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/' + path, {
+      method: opt.method || 'GET', cache:'no-store',
+      headers: Object.assign({Authorization:'Bearer ' + token(), Accept:'application/vnd.github+json'}, opt.body ? {'Content-Type':'application/json'} : {}),
+      body: opt.body ? JSON.stringify(opt.body) : undefined
+    });
+    if(!res.ok){
+      let m = ''; try{ m = (await res.json()).message || ''; }catch(e){}
+      const err = new Error(res.status + (m ? ' ' + m : '')); err.status = res.status; throw err;
+    }
+    return res.json();
+  }
+  async function readRepoJson(path, fallback){
+    try{
+      const d = await gh('contents/' + path + '?ref=' + GH_BRANCH);
+      return JSON.parse(decodeURIComponent(escape(atob(d.content.replace(/\s/g, '')))));
+    }catch(e){ if(e.status === 404) return fallback; throw e; }
+  }
+  /* Un seul commit pour tout (photos, miniatures, JSON) : une seule republication de GitHub Pages */
+  async function commitFiles(message, files, progress){
+    const head = (await gh('git/ref/heads/' + GH_BRANCH)).object.sha;
+    const base = (await gh('git/commits/' + head)).tree.sha;
+    const entries = [], blobs = files.filter(f => f.base64).length; let n = 0;
+    for(const f of files){
+      if(f.base64){
+        if(progress) progress(++n, blobs);
+        const b = await gh('git/blobs', {method:'POST', body:{content:f.base64, encoding:'base64'}});
+        entries.push({path:f.path, mode:'100644', type:'blob', sha:b.sha});
+      }else if(f.text !== undefined) entries.push({path:f.path, mode:'100644', type:'blob', content:f.text});
+      else if(f.remove) entries.push({path:f.path, mode:'100644', type:'blob', sha:null});
+    }
+    const tree = await gh('git/trees', {method:'POST', body:{base_tree:base, tree:entries}});
+    const commit = await gh('git/commits', {method:'POST', body:{message, tree:tree.sha, parents:[head]}});
+    await gh('git/refs/heads/' + GH_BRANCH, {method:'PATCH', body:{sha:commit.sha}});
+  }
+  const toText = obj => JSON.stringify(obj, null, 2) + '\n';
+
+  /* --- Photos : nouvelles --- */
+  $('photoFiles').addEventListener('change', () => {
+    const files = [...$('photoFiles').files].slice(0, 10);
+    $('newCaps').replaceChildren(...files.map(f => el('input', {type:'text', class:'cap-input', maxlength:'140', placeholder:'Légende (optionnelle) — ' + f.name})));
+  });
+  function loadImage(file){
+    return new Promise((ok, ko) => {
+      const fr = new FileReader();
+      fr.onerror = ko;
+      fr.onload = () => { const img = new Image(); img.onload = () => ok(img); img.onerror = ko; img.src = fr.result; };
+      fr.readAsDataURL(file);
+    });
+  }
+  function jpegBase64(img, maxSide, q){
+    const s = Math.min(1, maxSide / Math.max(img.width, img.height));
+    const c = document.createElement('canvas');
+    c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    return c.toDataURL('image/jpeg', q).split(',')[1];
+  }
+  const serialize = p => (p.thumb === p.src && !p.caption) ? p.src : Object.assign({src:p.src, thumb:p.thumb}, p.caption ? {caption:p.caption} : {});
+
+  $('publishPhotos').addEventListener('click', async () => {
+    const date = dateVal(), files = [...$('photoFiles').files].slice(0, 10);
+    if(!token() || !date || !files.length){ say('adminStatus', 'Token, date et au moins une photo sont requis.'); return; }
+    saveToken();
+    const caps = [...document.querySelectorAll('#newCaps .cap-input')].map(i => i.value.trim());
+    try{
+      const prepared = []; let failed = 0; const stamp = Date.now().toString(36);
+      for(let i = 0; i < files.length; i++){
+        say('adminStatus', 'Compression ' + (i+1) + '/' + files.length + '…');
+        try{
+          const img = await loadImage(files[i]);
+          prepared.push({name:date + '-' + stamp + '-' + i + '.jpg', caption:caps[i] || '', full:jpegBase64(img, 1600, .8), thumb:jpegBase64(img, 480, .72)});
+        }catch(e){ failed++; }
+      }
+      if(!prepared.length) throw new Error("aucune photo n'a pu être lue.");
+      const map = await readRepoJson('photos.json', {});
+      map[date] = [...(map[date] || []), ...prepared.map(p => serialize({src:'photos/' + p.name, thumb:'photos/thumbs/' + p.name, caption:p.caption}))];
+      const out = [];
+      prepared.forEach(p => out.push({path:'photos/' + p.name, base64:p.full}, {path:'photos/thumbs/' + p.name, base64:p.thumb}));
+      out.push({path:'photos.json', text:toText(map)});
+      await commitFiles('Photos du ' + date, out, (a, b) => say('adminStatus', 'Envoi ' + a + '/' + b + '…'));
+      say('adminStatus', '✓ ' + prepared.length + '/' + files.length + ' photo(s) publiée(s)' + (failed ? ' — ' + failed + ' illisible(s), à renvoyer.' : '.') + ' En ligne dans ~1 min.');
+      $('photoFiles').value = ''; $('newCaps').replaceChildren();
+      refreshExisting();
+    }catch(err){ say('adminStatus', 'Erreur : ' + err.message + ' — rien n’a été publié, vous pouvez réessayer.'); }
+  });
+
+  /* --- Photos : déjà publiées (légendes, suppression) --- */
+  async function refreshExisting(){
+    const date = dateVal(); let map = SITE_PHOTOS;
+    if(token()){ try{ map = await readRepoJson('photos.json', {}); }catch(e){} }
+    const list = (map[date] || []).map(normPhoto);
+    $('existing').replaceChildren(...(list.length ? list.map(p => el('div', {class:'ex-row', 'data-src':p.src},
+      el('img', {src:p.thumb, alt:''}),
+      el('input', {type:'text', class:'ex-cap', maxlength:'140', value:p.caption, placeholder:'Légende'}),
+      el('label', {}, el('input', {type:'checkbox', class:'ex-del'}), ' Supprimer'))) : [el('p', {class:'meta', text:'Aucune photo pour cette date.'})]));
+  }
+  $('savePhotoEdits').addEventListener('click', async () => {
+    const date = dateVal(), rows = [...document.querySelectorAll('#existing .ex-row')];
+    if(!token() || !date || !rows.length){ say('editStatus', 'Token, date et photos existantes requis.'); return; }
+    const nDel = rows.filter(r => r.querySelector('.ex-del').checked).length;
+    if(nDel && !confirm('Supprimer définitivement ' + nDel + ' photo(s) ?')) return;
+    saveToken();
+    try{
+      const map = await readRepoJson('photos.json', {});
+      const kept = [], removals = [];
+      (map[date] || []).map(normPhoto).forEach(p => {
+        const row = rows.find(r => r.dataset.src === p.src);
+        if(row && row.querySelector('.ex-del').checked){ removals.push(p.src); if(p.thumb !== p.src) removals.push(p.thumb); return; }
+        if(row) p.caption = row.querySelector('.ex-cap').value.trim();
+        kept.push(p);
+      });
+      if(kept.length) map[date] = kept.map(serialize); else delete map[date];
+      await commitFiles('Photos du ' + date + ' : modifications', [...removals.map(path => ({path, remove:true})), {path:'photos.json', text:toText(map)}]);
+      say('editStatus', '✓ Modifications publiées. Visibles dans ~1 min.');
+      refreshExisting();
+    }catch(err){ say('editStatus', 'Erreur : ' + err.message); }
+  });
+
+  /* --- Compte rendu --- */
+  function fillNote(){ $('noteText').value = NOTES[dateVal()] || ''; $('shareNote').hidden = true; }
+  $('publishNote').addEventListener('click', async () => {
+    const date = dateVal(), text = $('noteText').value.trim();
+    if(!token() || !date){ say('noteStatus', 'Token et date requis.'); return; }
+    saveToken(); say('noteStatus', 'Envoi en cours…');
+    try{
+      const map = await readRepoJson('notes.json', {});
+      if(text) map[date] = text; else delete map[date];
+      await commitFiles('Compte rendu du ' + date, [{path:'notes.json', text:toText(map)}]);
+      NOTES = map;
+      say('noteStatus', text ? '✓ Compte rendu publié. En ligne dans ~1 min — attendez avant de partager le lien.' : '✓ Compte rendu supprimé. Il disparaît du site dans ~1 min.');
+      $('shareNote').hidden = !text;
+    }catch(err){ say('noteStatus', 'Erreur : ' + err.message); }
+  });
+  $('shareNote').addEventListener('click', async () => {
+    const date = dateVal(), day = allDays.find(d => d.iso === date);
+    const text = (day ? day.date + ' — ' + day.title : date) + '\n\n' + $('noteText').value.trim();
+    const url = SITE_URL + '#jour-' + date;
+    try{
+      if(navigator.share) await navigator.share({title:'Carnet de route — Japon', text, url});
+      else{ await navigator.clipboard.writeText(text + '\n' + url); say('noteStatus', 'Texte et lien copiés ✓'); }
+    }catch(e){}
+  });
+
+  /* --- Planning du jour --- */
+  function fillPlan(){
+    const day = allDays.find(d => d.iso === dateVal());
+    $('planText').value = day ? '{"title": ' + JSON.stringify(day.title) + ',\n "items": [\n' + day.items.map(i => '  ' + JSON.stringify(i)).join(',\n') + '\n ]}' : '';
+  }
+  function validateDay(o){
+    if(!o || typeof o !== 'object' || Array.isArray(o)) return 'le contenu doit être un objet {"title": …, "items": […]}.';
+    if(typeof o.title !== 'string' || !o.title.trim()) return 'le titre est manquant.';
+    if(!Array.isArray(o.items) || o.items.length > 30) return '« items » doit être une liste (30 max).';
+    for(const [i, it] of o.items.entries()){
+      const n = 'activité ' + (i+1) + ' : ';
+      if(!it || typeof it !== 'object') return n + 'objet attendu.';
+      if(typeof it.text !== 'string' || !it.text.trim()) return n + '« text » manquant.';
+      if(!TYPES[it.type]) return n + '« type » doit être parmi ' + Object.keys(TYPES).join(', ') + '.';
+      if(typeof it.region !== 'string' || !it.region.trim()) return n + '« region » manquant.';
+      for(const k of ['time','info','maps']) if(it[k] != null && typeof it[k] !== 'string') return n + '« ' + k + ' » doit être du texte.';
+      if(it.booked != null && typeof it.booked !== 'boolean') return n + '« booked » doit être true ou false.';
+    }
+    return null;
+  }
+  $('savePlan').addEventListener('click', async () => {
+    const date = dateVal();
+    if(!token() || !date){ say('planStatus', 'Token et date requis.'); return; }
+    let obj; try{ obj = JSON.parse($('planText').value); }catch(e){ say('planStatus', 'JSON invalide : ' + e.message); return; }
+    const bad = validateDay(obj); if(bad){ say('planStatus', 'Refusé : ' + bad); return; }
+    saveToken(); say('planStatus', 'Envoi en cours…');
+    try{
+      const plan = await readRepoJson('itinerary.json', null);
+      if(!Array.isArray(plan)) throw new Error('itinerary.json introuvable dans le dépôt.');
+      const day = plan.flatMap(e => e.days).find(d => d.iso === date);
+      if(!day) throw new Error("cette date n'est pas dans le planning.");
+      day.title = obj.title.trim(); day.items = obj.items;
+      await commitFiles('Planning du ' + date, [{path:'itinerary.json', text:toText(plan)}]);
+      say('planStatus', '✓ Planning enregistré. En ligne dans ~1 min.');
+    }catch(err){ say('planStatus', 'Erreur : ' + err.message); }
+  });
+
+  $('photoDate').addEventListener('change', () => { fillNote(); fillPlan(); refreshExisting(); });
+  fillNote(); fillPlan(); refreshExisting();
+}
+if(location.hash === '#admin') initAdmin();
+})();
 </script>
 </body>
 </html>
