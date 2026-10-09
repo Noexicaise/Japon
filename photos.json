@@ -1,1 +1,21 @@
-{}
+{
+  "2026-10-19": [
+    {
+      "src": "photos/2026-10-19-mv1h5wiz-0.jpg",
+      "thumb": "photos/thumbs/2026-10-19-mv1h5wiz-0.jpg",
+      "caption": "Œuvre d’art"
+    },
+    {
+      "src": "photos/2026-10-19-mv1h5wiz-1.jpg",
+      "thumb": "photos/thumbs/2026-10-19-mv1h5wiz-1.jpg"
+    },
+    {
+      "src": "photos/2026-10-19-mv1h5wiz-2.jpg",
+      "thumb": "photos/thumbs/2026-10-19-mv1h5wiz-2.jpg"
+    },
+    {
+      "src": "photos/2026-10-19-mv1h5wiz-3.jpg",
+      "thumb": "photos/thumbs/2026-10-19-mv1h5wiz-3.jpg"
+    }
+  ]
+}
